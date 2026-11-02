@@ -1,0 +1,48 @@
+table dim_tag_student
+	lineageTag: 5d56ed93-1060-42cd-b841-15b0d7b93188
+
+	column tag_student
+		lineageTag: 0668b56f-5a2c-4254-8e75-e55a00d9f060
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Tag_Student]
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		lineageTag: 1fcadf48-b754-48ca-b88b-4273b914d130
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		formatString: 0
+		lineageTag: 1545d2c6-063c-46eb-93a9-c91380737964
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [id]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_tag_student = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "tag_student", STRING,
+				    "name", STRING,
+				    "id", INTEGER,
+				    {
+				        {"NEW", "Mới", "1"},
+				        {"EXPIRED", "Hết hạn", "4"},
+				        {"ON_GOING", "Đang học", "2"},
+				        {"RENEWAL_COMING_SOON", "Sắp gia hạn", "3"},
+				        {"Demo", "Demo", "5"},
+				        {"Chưa xác định", "Chưa xác định","6"}
+				    }
+				)
+
+	annotation PBI_Id = 5780043ac86c458999a9c6f81ac4ae52
+

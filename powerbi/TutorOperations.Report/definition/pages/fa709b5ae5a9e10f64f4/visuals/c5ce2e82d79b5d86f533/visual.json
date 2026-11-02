@@ -1,0 +1,397 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "c5ce2e82d79b5d86f533",
+  "position": {
+    "x": 8.8095238095237018,
+    "y": 42.142857142857039,
+    "z": 1000,
+    "height": 443.33333333333337,
+    "width": 1026.6666666666667,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "class_code"
+                }
+              },
+              "queryRef": "fact_class_regular.class_code",
+              "nativeQueryRef": "Mã lớp",
+              "displayName": "Mã lớp"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "date_create"
+                }
+              },
+              "queryRef": "fact_class_regular.date_create",
+              "nativeQueryRef": "Ngày tạo",
+              "displayName": "Ngày tạo"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "class_openning_date"
+                }
+              },
+              "queryRef": "fact_class_regular.class_openning_date",
+              "nativeQueryRef": "Ngày khai giảng",
+              "displayName": "Ngày khai giảng"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "class_status"
+                }
+              },
+              "queryRef": "fact_class_regular.class_status",
+              "nativeQueryRef": "Trạng thái",
+              "displayName": "Trạng thái"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "chairman_teacher_username"
+                }
+              },
+              "queryRef": "fact_class_regular.chairman_teacher_username",
+              "nativeQueryRef": "GSCN",
+              "displayName": "GSCN"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "grade_code"
+                }
+              },
+              "queryRef": "fact_class_regular.grade_code",
+              "nativeQueryRef": "Khối lớp",
+              "displayName": "Khối lớp"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "level_code"
+                }
+              },
+              "queryRef": "fact_class_regular.level_code",
+              "nativeQueryRef": "Trình độ",
+              "displayName": "Trình độ"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "start_time"
+                }
+              },
+              "queryRef": "fact_class_regular.start_time",
+              "nativeQueryRef": "Ca dạy",
+              "displayName": "Ca dạy"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "number_of_students"
+                }
+              },
+              "queryRef": "fact_class_regular.number_of_students",
+              "nativeQueryRef": "Số HS",
+              "displayName": "Số HS"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_class_regular"
+                    }
+                  },
+                  "Property": "study_program_name"
+                }
+              },
+              "queryRef": "fact_class_regular.study_program_name",
+              "nativeQueryRef": "Chương trình",
+              "displayName": "Chương trình"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "grid": [
+        {
+          "properties": {
+            "rowPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "wordWrap": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "outlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Minimal'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Data raw lớp mở'"
+                }
+              }
+            },
+            "italic": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "padding": [
+        {
+          "properties": {
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            },
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "divider": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "ignorePadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "width": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            },
+            "style": {
+              "expr": {
+                "Literal": {
+                  "Value": "'solid'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "parentGroupName": "2f25301a56d8cd203647"
+}

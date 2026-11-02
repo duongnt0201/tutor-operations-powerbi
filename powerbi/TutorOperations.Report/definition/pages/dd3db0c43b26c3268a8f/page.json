@@ -1,0 +1,61 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "dd3db0c43b26c3268a8f",
+  "displayName": "6. Dữ liệu Vận hành GS",
+  "displayOption": "FitToPage",
+  "height": 1060,
+  "width": 1860,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "49988e87b322e4757e63",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_schedule_class"
+              }
+            },
+            "Property": "tutor_group"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F6F5F5'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "3c67242a3910ce098ea6",
+      "target": "19b2f9915f664e6540f3",
+      "type": "DataFilter"
+    }
+  ]
+}

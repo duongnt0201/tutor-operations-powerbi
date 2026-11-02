@@ -1,0 +1,53 @@
+table switch
+	lineageTag: 0da492ac-f7d5-4e0e-9f9f-46b9f6014ffd
+
+	column id
+		lineageTag: 2f66da49-512c-411c-97ae-507ac923e8d6
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [id]
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		lineageTag: 9c1462a0-dcc7-4830-a19d-f67e3a271d91
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [name]
+
+		annotation SummarizationSetBy = Automatic
+
+	column switch
+		lineageTag: cc804b0f-3eee-459b-817b-5aed5b826bba
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [switch]
+
+		annotation SummarizationSetBy = Automatic
+
+	column kpi
+		lineageTag: 7f10d549-c9c6-401a-ae7d-70a3a708a35a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [kpi]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition switch = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "id", STRING,
+				    "name", STRING,
+				    "switch", STRING,
+				    "kpi", STRING,
+				    {
+				        {"1", "Số buổi học thực tế", "Buổi học", "Kế hoạch"},
+				        {"2", "Số lượt học thực tế", "Lượt học", "Thực tế"},
+				        {"3", "ACS", "ACS", "null"}
+				    }
+				)
+
+	annotation PBI_Id = 2df841a56ef14a13aec08f9efd3af648
+

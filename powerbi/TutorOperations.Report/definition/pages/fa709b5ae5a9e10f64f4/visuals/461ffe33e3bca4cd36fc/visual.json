@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "461ffe33e3bca4cd36fc",
+  "position": {
+    "x": 1380,
+    "y": 120,
+    "z": 4000,
+    "height": 395,
+    "width": 446,
+    "tabOrder": 3000
+  },
+  "visualGroup": {
+    "displayName": "Phân bổ theo chương trình",
+    "groupMode": "ScaleMode"
+  }
+}

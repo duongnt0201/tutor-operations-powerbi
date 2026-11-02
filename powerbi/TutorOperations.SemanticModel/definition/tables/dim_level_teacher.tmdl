@@ -1,0 +1,44 @@
+table dim_level_teacher
+	lineageTag: 70a0c7de-5f91-4109-a18b-879a3f97f61f
+
+	column level_teacher
+		lineageTag: c963ed21-018a-481f-9c7f-91e15ade5ab5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [level_teacher]
+		sortByColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		formatString: 0
+		lineageTag: de50ae33-0d69-4141-aaa3-e9a99f6ea79d
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [id]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_level_teacher = calculated
+		mode: import
+		source = ```
+				
+				DATATABLE(
+				    "level_teacher", STRING,
+				    "id", INTEGER,
+				    {
+				        {"A+", 1},
+				        {"A", 2},
+				        {"B", 3},
+				        {"C", 4},
+				        {"D", 5} 
+				        // GS regular chỉ có 5 level, trong đó D chính là D- regular trong database
+				//         {"D- regular", 6},
+				//         {"E", 7},
+				//         {"Tester", 8}
+				    }
+				)
+				```
+
+	annotation PBI_Id = 90ed5ff21da94987b47d08ade5236c8d
+

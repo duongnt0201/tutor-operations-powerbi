@@ -1,0 +1,267 @@
+table fact_arrange_class
+	lineageTag: 4972a2a5-0c84-40cd-89c7-29410f6b3b28
+
+	column task_arrange_class_id
+		dataType: string
+		lineageTag: 911dd0fa-b59a-4a84-8c61-2fd7126c213f
+		summarizeBy: none
+		sourceColumn: task_arrange_class_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_code
+		dataType: string
+		lineageTag: f5b0c11d-1823-4648-ad46-ac7b8b6998b8
+		summarizeBy: none
+		sourceColumn: class_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrange_status
+		dataType: string
+		lineageTag: 799140cc-f4f2-4727-a0e2-e89bc7f403a9
+		summarizeBy: none
+		sourceColumn: arrange_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrange_class_method
+		dataType: string
+		lineageTag: 81774473-964d-4a1a-a126-9e97d9d1bca0
+		summarizeBy: none
+		sourceColumn: arrange_class_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrange_create_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e658d411-c335-437c-a5c8-5e961bae0638
+		summarizeBy: none
+		sourceColumn: arrange_create_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column arrange_success_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 479342d5-3481-4baf-b528-8a26d67578ca
+		summarizeBy: none
+		sourceColumn: arrange_success_date
+
+		variation Variation
+			isDefault
+			relationship: f1d1106f-4b7e-4b46-8ce8-8e7e12fc02ab
+			defaultHierarchy: LocalDateTable_170b714e-740d-43e8-9f2f-304443bb0546.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column arrange_type
+		dataType: string
+		lineageTag: e7eef280-5b4f-4dc3-9228-1d90e44ad579
+		summarizeBy: none
+		sourceColumn: arrange_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: ffa5a26e-4309-4b85-b4ce-e82589fc3aee
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column ptc_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: f6954ca5-36e2-4a7c-a6bf-741f58da22e3
+		summarizeBy: none
+		sourceColumn: ptc_date
+
+		variation Variation
+			isDefault
+			relationship: 12a29170-d15b-4cf6-8455-1fab5f8fd1b9
+			defaultHierarchy: LocalDateTable_47a76286-fca0-4657-8f0d-062a94947af0.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column first_learn_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e1943828-8e58-4774-bb8c-94d136fe866f
+		summarizeBy: none
+		sourceColumn: first_learn_date
+
+		variation Variation
+			isDefault
+			relationship: 1576e74e-18a8-40f4-9b1a-bcc84f43175d
+			defaultHierarchy: LocalDateTable_c272c82c-2ab4-46ed-8362-4c358a7bad71.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column student_id
+		dataType: double
+		formatString: 0
+		lineageTag: 78693384-ca83-4311-a728-4e8ddf62744e
+		summarizeBy: sum
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_program
+		dataType: string
+		lineageTag: f0b8cc72-15d3-4340-81fc-1069539f08a8
+		summarizeBy: none
+		sourceColumn: grade_program
+
+		annotation SummarizationSetBy = Automatic
+
+	column grade_code
+		dataType: string
+		lineageTag: 7ad7f24b-905b-49af-9a4c-5881d36efe03
+		summarizeBy: none
+		sourceColumn: grade_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_code
+		dataType: string
+		lineageTag: 179e4159-9850-43de-b9e0-83eceebbfe1f
+		summarizeBy: none
+		sourceColumn: level_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: 2345aa36-d6f6-48be-a56b-fdb703dd945e
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_to_assigned_arrange = DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[first_learn_date],day)
+		formatString: 0
+		lineageTag: 8b3dc5e4-0092-425f-a9d2-e5cbe91c3736
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_to_first_learn = ```
+			
+			var x = DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[first_learn_date], day)
+			RETURN
+			SWITCH( 
+			    TRUE()
+			    , x <= 3, "D0 - D3"
+			    , x > 3 && x <= 7, "D4 - D7"
+			    , x > 7 && x <= 10, "D8 - D10"
+			    , x > 10 && x <= 14, "D11 - D14"
+			    , ">D14"
+			)
+			```
+		lineageTag: 526c6bf1-60d8-44c6-8c12-3f0f537c4e5e
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column arrange_create_hour
+		dataType: int64
+		formatString: 0
+		lineageTag: 3867a2c2-7243-4140-a0be-f4d0c005ff39
+		summarizeBy: sum
+		sourceColumn: arrange_create_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: string
+		lineageTag: aa2954f7-b29c-4818-9ba0-15a85a370369
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_time
+		dataType: string
+		lineageTag: a3fff4b3-d0a0-4375-af98-6369d3818aa3
+		summarizeBy: none
+		sourceColumn: start_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column study_program
+		dataType: string
+		lineageTag: d23f4a91-2f24-48fb-b8c7-f5db6fc06498
+		summarizeBy: none
+		sourceColumn: study_program
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_create_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cd3b4fe5-660f-47a2-923c-2a138814dfe1
+		summarizeBy: none
+		sourceColumn: class_create_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column call_status
+		dataType: string
+		lineageTag: e48739a5-c176-4978-b5c9-21d6db1e67b0
+		summarizeBy: none
+		sourceColumn: call_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column package_name
+		dataType: string
+		lineageTag: d8808278-4b8d-4939-8fbb-1ad9c7368fda
+		summarizeBy: none
+		sourceColumn: package_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_type
+		dataType: string
+		lineageTag: 713e7966-2121-4ff3-9981-2dee8378ea9f
+		summarizeBy: none
+		sourceColumn: order_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column new_package_category
+		dataType: string
+		lineageTag: 3b18c745-bcc5-4c34-81f3-9b010db5927f
+		summarizeBy: none
+		sourceColumn: new_package_category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_arrange_class = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "fact_arrange_class.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"task_arrange_class_id", type text}, {"class_code", type text}, {"arrange_status", type text}, {"arrange_class_method", type text}, {"arrange_create_date", type date}, {"arrange_success_date", type date}, {"arrange_type", type text}, {"order_id", type text}, {"ptc_date", type date}, {"first_learn_date", type date}, {"student_id", type number}, {"grade_program", type text}, {"grade_code", type text}, {"level_code", type text}, {"phone", type text}, {"arrange_create_hour", Int64.Type}, {"day_of_week", type text}, {"start_time", type text}, {"study_program", type text}, {"class_create_date", type date}, {"call_status", type text}, {"package_name", type text}, {"order_type", type text}, {"new_package_category", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

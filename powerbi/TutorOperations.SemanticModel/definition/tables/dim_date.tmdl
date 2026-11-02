@@ -1,0 +1,184 @@
+table dim_date
+	lineageTag: bb3f5345-24cf-4a38-81ee-8ada727a658e
+	dataCategory: Time
+
+	column report_date
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: e8006cff-213d-48ac-aded-aa2383287381
+		summarizeBy: none
+		sourceColumn: report_date
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column month_year
+		dataType: string
+		lineageTag: d6a72531-1686-4daf-a96d-baaa917273bd
+		summarizeBy: none
+		sourceColumn: month_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f89e21f-3930-4b36-ad68-5045a0630b86
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column quarter
+		dataType: string
+		lineageTag: 85891aa2-87b0-4d1c-8b20-bd9d5596a23a
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 648d8e43-021b-4d1c-b656-152c9da51694
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = User
+
+	column month_name
+		dataType: string
+		lineageTag: ca489e63-e4f0-4fe5-b6ae-3504379c8c02
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_of_month
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 320f3ecb-5fe1-4a3e-98da-d93b07fb2a14
+		summarizeBy: none
+		sourceColumn: start_of_month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column month_year_sort
+		dataType: int64
+		formatString: 0
+		lineageTag: 2fe054ee-db24-4819-857d-6cd08d27b150
+		summarizeBy: none
+		sourceColumn: month_year_sort
+
+		annotation SummarizationSetBy = User
+
+	column date_filter = IF([report_date] <= TODAY(), "Y", "N")
+		lineageTag: 66db4a17-d3ec-4b3b-8866-aa5d36c97caa
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column week_of_year = WEEKNUM(dim_date[report_date])
+		formatString: 0
+		lineageTag: 8176252e-f635-4692-a896-f4b9288fc479
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column week_of_month =
+			
+			VAR x = DATE(YEAR('dim_date'[report_date]), MONTH('dim_date'[report_date]), 1)
+			VAR WeekNum = WEEKNUM('dim_date'[report_date], 2) - WEEKNUM(x, 2) + 1
+			RETURN WeekNum
+		formatString: 0
+		lineageTag: ddaec64a-56f7-4ace-8001-3da7113497ae
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	column day_of_week = ```
+			
+			SWITCH(
+			    WEEKDAY('dim_date'[report_date], 2),
+			    1, "Mon",
+			    2, "Tue",
+			    3, "Wed",
+			    4, "Thu",
+			    5, "Fri",
+			    6, "Sat",
+			    7, "Sun"
+			)
+			
+			```
+		lineageTag: c24b80eb-8bf5-436c-a2ce-33316690ebc6
+		summarizeBy: none
+		sortByColumn: week_day
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = User
+
+	column week_day = ```
+			WEEKDAY(dim_date[report_Date], 2)
+			
+			```
+		formatString: 0
+		lineageTag: 642316bd-550d-46f7-a1de-0fcd5703ad75
+		summarizeBy: none
+
+		annotation SummarizationSetBy = User
+
+	partition dim_date = m
+		mode: import
+		queryGroup: Dim
+		source = ```
+				let
+				    // Create parameter
+				    EndOfCurrentYear = DateTime.Date(Date.EndOfYear(Date.AddYears(DateTime.LocalNow(), 0))),
+				    StartDate = #date(2024, 1, 1),
+				    Step = Duration.Days(EndOfCurrentYear - StartDate) + 1,
+				
+				    // Create the List of date
+				    Source = List.Dates(StartDate, Step, #duration(1, 0, 0, 0)),
+				    #"Converted to Table" = Table.FromList(Source, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+				
+				    // Create additional columns
+				    #"Inserted Year" = Table.AddColumn(#"Converted to Table", "year", each Date.Year([Column1]), Int64.Type),
+				    #"Inserted Quarter" = Table.AddColumn(#"Inserted Year", "quarter", each "Q" & Text.From(Date.QuarterOfYear([Column1]))),
+				    #"Inserted Month" = Table.AddColumn(#"Inserted Quarter", "month", each Date.Month([Column1]), Int64.Type),
+				    #"Inserted Month Name" = Table.AddColumn(#"Inserted Month", "month_name", each Text.Start(Date.MonthName([Column1]), 3), type text),
+				    #"Inserted End of Month" = Table.AddColumn(#"Inserted Month Name", "start_of_month", each Date.StartOfMonth([Column1]), type date),
+				    #"Renamed Columns" = Table.RenameColumns(#"Inserted End of Month", {{"Column1", "report_date"}}),
+				
+				    // Define "today"
+				    Today = DateTime.Date(DateTime.LocalNow()),
+				    CurrentMonth = Date.Month(Today),
+				    CurrentYear = Date.Year(Today),
+				
+				    // Add month_year column
+				    #"Added month_year" = Table.AddColumn(#"Renamed Columns", "month_year", each 
+				        if Date.Month([report_date]) = CurrentMonth and Date.Year([report_date]) = CurrentYear then "Tháng hiện tại" 
+				        else Text.From(Date.Year([report_date])) & "-" & Text.PadStart(Text.From(Date.Month([report_date])), 2, "0")),
+				
+				    #"Grouped Rows by month_year" = Table.Group(#"Added month_year", {"month_year"}, {{"data", each _, type table [report_date=nullable date, year=number, quarter=text, month=number, month_name=text, end_of_month=date]}}),
+				    #"Added month_year_sort" = Table.AddIndexColumn(#"Grouped Rows by month_year", "month_year_sort", 0, 1, Int64.Type),
+				    #"Expanded data" = Table.ExpandTableColumn(#"Added month_year_sort", "data", {"report_date", "year", "quarter", "month", "month_name", "start_of_month"}, {"report_date", "year", "quarter", "month", "month_name", "start_of_month"}),
+				
+				    #"Changed Type" = Table.TransformColumnTypes(#"Expanded data",{{"report_date", type date}, {"start_of_month", type date}, {"month_year_sort", Int64.Type}, {"month", Int64.Type}, {"year", Int64.Type}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type",{{"report_date", Order.Descending}})
+				in
+				    #"Sorted Rows"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

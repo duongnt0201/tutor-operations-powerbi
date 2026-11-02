@@ -1,0 +1,76 @@
+table dim_study_program
+	lineageTag: faeda44a-d76f-444c-8e10-c1a7aee492b4
+
+	column STUDY_PROGRAM_NAME
+		dataType: string
+		lineageTag: ab3cb877-25bf-428d-a2c7-5ad7985d16ec
+		summarizeBy: none
+		sourceColumn: STUDY_PROGRAM_NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column MAX_STUDENT_IN_CLASS
+		dataType: int64
+		formatString: 0
+		lineageTag: 575ca595-cbcb-4590-a45b-40bf662d8efe
+		summarizeBy: sum
+		sourceColumn: MAX_STUDENT_IN_CLASS
+
+		annotation SummarizationSetBy = Automatic
+
+	column STUDY_PROGRAM_CODE
+		dataType: string
+		lineageTag: f9fe0abd-e678-43b7-8956-25e6ee074f5f
+		summarizeBy: none
+		sourceColumn: STUDY_PROGRAM_CODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column TYPE
+		dataType: string
+		lineageTag: 8d3ebd51-0c15-49d3-9162-5b1f339e4c47
+		summarizeBy: none
+		sourceColumn: TYPE
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUCT_TYPE_CODE
+		dataType: string
+		lineageTag: 6f431293-f53e-4ef9-92b5-bc10e6c4c313
+		summarizeBy: none
+		sourceColumn: PRODUCT_TYPE_CODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column SESSIONS_PER_WEEK
+		dataType: int64
+		formatString: 0
+		lineageTag: a87deb00-56c8-493b-9af5-f9c5f525c47e
+		summarizeBy: sum
+		sourceColumn: SESSIONS_PER_WEEK
+
+		annotation SummarizationSetBy = Automatic
+
+	column PROGRAM_MODEL
+		dataType: string
+		lineageTag: 74583147-eb60-42fd-8cd5-e32afd1c4e14
+		summarizeBy: none
+		sourceColumn: PROGRAM_MODEL
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_study_program = m
+		mode: import
+		queryGroup: Dim
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "dim_study_program.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"STUDY_PROGRAM_NAME", type text}, {"MAX_STUDENT_IN_CLASS", Int64.Type}, {"STUDY_PROGRAM_CODE", type text}, {"TYPE", type text}, {"PRODUCT_TYPE_CODE", type text}, {"SESSIONS_PER_WEEK", Int64.Type}, {"PROGRAM_MODEL", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

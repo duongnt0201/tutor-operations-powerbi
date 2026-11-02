@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7fc5afe9f8cd2206930c",
+  "position": {
+    "x": 280,
+    "y": 120,
+    "z": 6187,
+    "height": 395,
+    "width": 570,
+    "tabOrder": 2000
+  },
+  "visualGroup": {
+    "displayName": "Tổng số ticket",
+    "groupMode": "ScaleMode"
+  }
+}

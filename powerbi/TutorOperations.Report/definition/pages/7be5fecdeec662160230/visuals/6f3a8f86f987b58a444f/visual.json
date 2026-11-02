@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "6f3a8f86f987b58a444f",
+  "position": {
+    "x": 560,
+    "y": 775,
+    "z": 1000,
+    "height": 253.75,
+    "width": 339,
+    "tabOrder": 10000
+  },
+  "visualGroup": {
+    "displayName": "GS vào muộn",
+    "groupMode": "ScaleMode"
+  }
+}

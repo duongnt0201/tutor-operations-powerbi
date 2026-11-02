@@ -1,0 +1,15 @@
+expression _Measure =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+		in
+		    #"Removed Columns"
+	lineageTag: 1d3ac1c2-0705-4b16-be62-c9103b71ba53
+
+	annotation PBI_ResultType = Table
+
+expression SampleDataPath = "C:\TutorOperations\data\sample\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 23f64a13-d3a6-4d69-a82d-53bd64485469
+
+	annotation PBI_ResultType = Text

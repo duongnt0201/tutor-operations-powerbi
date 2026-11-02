@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "b84a9c9dec9aa68d872f",
+  "position": {
+    "x": 292.06896551724139,
+    "y": 1.4285714285714448,
+    "z": 3000,
+    "height": 304,
+    "width": 328,
+    "tabOrder": 17000
+  },
+  "visualGroup": {
+    "displayName": "% HS vào muộn",
+    "groupMode": "ScaleMode"
+  },
+  "parentGroupName": "24d492517d6d79377d4e"
+}

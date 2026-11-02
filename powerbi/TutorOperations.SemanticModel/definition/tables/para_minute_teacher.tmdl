@@ -1,0 +1,26 @@
+table para_minute_teacher
+	lineageTag: 14b28a9a-c836-44ec-8088-2853b526d407
+
+	measure 'para_minute_teacher Value' = SELECTEDVALUE('para_minute_teacher'[para_minute_teacher])
+		formatString: 0
+		lineageTag: 3e8e6d86-0240-4b73-a532-38833b2d119d
+
+	column para_minute_teacher
+		formatString: 0
+		lineageTag: 58041ae7-686c-4cf0-a036-3c7e840e9edc
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition para_minute_teacher = calculated
+		mode: import
+		source = GENERATESERIES(0, 15, 1)
+
+	annotation PBI_Id = 042a78a3a4dd420a9372be51e490e344
+

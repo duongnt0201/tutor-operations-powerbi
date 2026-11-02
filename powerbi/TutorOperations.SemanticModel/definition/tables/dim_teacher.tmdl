@@ -1,0 +1,74 @@
+table dim_teacher
+	lineageTag: 2b9f5b83-42ce-45c6-8144-01cba7135866
+
+	column teacher_id
+		dataType: string
+		lineageTag: 84fd8216-9489-4956-8b17-a71ecf4bfd23
+		summarizeBy: none
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_username
+		dataType: string
+		lineageTag: 755d11d0-c60c-4c71-9ff4-2e4abd1caedb
+		summarizeBy: none
+		sourceColumn: teacher_username
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_name
+		dataType: string
+		lineageTag: c5185ba8-84ae-404f-a92a-3ab2ced63556
+		summarizeBy: none
+		sourceColumn: full_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 40482904-e211-4104-8aac-1c86b547a509
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: 82aa5cee-d748-479f-8a4e-0f5dfaa24016
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: 6e594e7c-28df-43f8-ba43-1e908f36afc7
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_teacher
+		dataType: string
+		lineageTag: 235cb072-0fbf-41c2-a835-f07bba10cc9a
+		summarizeBy: none
+		sourceColumn: level_teacher
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_teacher = m
+		mode: import
+		queryGroup: Dim
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "dim_teacher.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"teacher_id", type text}, {"teacher_username", type text}, {"full_name", type text}, {"gender", type text}, {"region", type text}, {"phone", type text}, {"level_teacher", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

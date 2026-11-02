@@ -1,0 +1,26 @@
+table para_minute
+	lineageTag: ec344a7b-aa95-4ead-80b7-9688c6418286
+
+	measure 'Parameter Value' = SELECTEDVALUE('para_minute'[para_minute])
+		formatString: 0
+		lineageTag: 48eb8439-6b32-467e-af0e-8f13b554109f
+
+	column para_minute
+		formatString: 0
+		lineageTag: 05d95198-c1b9-4772-91df-81fb99cb427f
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition para_minute = calculated
+		mode: import
+		source = GENERATESERIES(1, 15, 1)
+
+	annotation PBI_Id = 5107b4e6e9ba41bf86d46af04192505d
+

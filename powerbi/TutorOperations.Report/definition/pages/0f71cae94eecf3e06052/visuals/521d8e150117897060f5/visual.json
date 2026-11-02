@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "521d8e150117897060f5",
+  "position": {
+    "x": 280,
+    "y": 610,
+    "z": 2000,
+    "height": 425,
+    "width": 720,
+    "tabOrder": 5000
+  },
+  "visualGroup": {
+    "displayName": "Phân bổ lịch",
+    "groupMode": "ScaleMode"
+  }
+}

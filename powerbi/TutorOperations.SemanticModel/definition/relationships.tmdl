@@ -1,0 +1,160 @@
+relationship f1d1106f-4b7e-4b46-8ce8-8e7e12fc02ab
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_arrange_class.arrange_success_date
+	toColumn: LocalDateTable_170b714e-740d-43e8-9f2f-304443bb0546.Date
+
+relationship 12a29170-d15b-4cf6-8455-1fab5f8fd1b9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_arrange_class.ptc_date
+	toColumn: LocalDateTable_47a76286-fca0-4657-8f0d-062a94947af0.Date
+
+relationship 1576e74e-18a8-40f4-9b1a-bcc84f43175d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_arrange_class.first_learn_date
+	toColumn: LocalDateTable_c272c82c-2ab4-46ed-8362-4c358a7bad71.Date
+
+relationship 16a36e12-60bc-2270-3648-6ac66a675259
+	fromColumn: fact_regular_session.learn_date
+	toColumn: dim_date.report_date
+
+relationship 1ee8c346-9521-7f6e-9272-95b5b1094073
+	fromColumn: fact_arrange_class.arrange_create_date
+	toColumn: dim_date.report_date
+
+relationship 1300ad47-424f-7aa1-3894-be3d625391e1
+	fromColumn: fact_arrange_class.grade_code
+	toColumn: dim_grade.code
+
+relationship d794eb2b-0458-d457-63cd-e48452fba4b1
+	fromColumn: fact_arrange_class.level_code
+	toColumn: dim_level.CODE
+
+relationship 13ab75cb-8104-48ad-bbce-cb51e415b91d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_schedule_class.month_of_report
+	toColumn: LocalDateTable_49f72aa6-9835-4f81-88e2-db31ea273fd2.Date
+
+relationship 114ff329-450e-48d1-9044-66b413474071
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_schedule_class.assigned_date
+	toColumn: LocalDateTable_997e0e23-161e-474e-8801-96525bed73a1.Date
+
+relationship 713f7925-88b1-9f06-3e2d-7970787251a2
+	fromColumn: fact_schedule_class.schedule_date
+	toColumn: dim_date.report_date
+
+relationship 3355d88c-6b64-dc8b-4b19-7fe4f26caac9
+	fromColumn: fact_arrange_class.day_to_first_learn
+	toColumn: dim_day_khaigiang.day_to_first_learn
+
+relationship AutoDetected_96dd80e8-cf43-43b4-9bcc-78f64cf21dbd
+	fromColumn: fact_arrange_class.study_program
+	toColumn: dim_study_program.STUDY_PROGRAM_NAME
+
+relationship 33205959-aba8-b05c-dbd4-6f52995472df
+	isActive: false
+	fromColumn: fact_arrange_class.class_create_date
+	toColumn: dim_date.report_date
+
+relationship 4721a981-75d9-4c74-ba4f-8da555ab71f1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_regular_session.learn_month
+	toColumn: LocalDateTable_c8c78385-51f7-4029-88c5-ced135a495f4.Date
+
+relationship d6149f0e-6c66-79a6-3165-8bc31286c92b
+	fromColumn: fact_regular_session.level_code
+	toColumn: dim_level.CODE
+
+relationship 32a7a993-0093-8cf5-50d0-fd4f63c925a6
+	fromColumn: fact_regular_session.grade_code
+	toColumn: dim_grade.code
+
+relationship AutoDetected_a1af9262-8d10-4ed1-8f5d-2669e5c85ba5
+	fromColumn: fact_regular_session.study_program_name
+	toColumn: dim_study_program.STUDY_PROGRAM_NAME
+
+relationship AutoDetected_f0fc03cd-a6eb-45c0-8f32-f3c50f857bf2
+	fromColumn: fact_schedule_class.teacher_username
+	toColumn: dim_teacher.teacher_username
+
+relationship d6052864-fe21-ffe3-fdad-151d977fb840
+	fromColumn: fact_regular_session.teacher_id
+	toColumn: dim_teacher.teacher_id
+
+relationship 92960ac0-c944-268d-0cfd-23acde41efb6
+	fromColumn: fact_regular_session.session_type
+	toColumn: dim_session_type.session_type
+
+relationship AutoDetected_f8c8b8d5-77de-44ad-8fed-8e1cc5cafb4b
+	fromColumn: fact_class_regular.study_program_name
+	toColumn: dim_study_program.STUDY_PROGRAM_NAME
+
+relationship efc376f6-f71b-a3b0-11e3-d6e3e289d349
+	fromColumn: fact_class_regular.date_create
+	toColumn: dim_date.report_date
+
+relationship 09d082fe-3c80-53d4-0703-3685309a902b
+	fromColumn: fact_class_regular.grade_code
+	toColumn: dim_grade.code
+
+relationship 5b72c6ea-956d-e204-3dc5-81c02f3db341
+	fromColumn: fact_class_regular.level_code
+	toColumn: dim_level.CODE
+
+relationship 26355b14-6982-47dc-97f4-684b3ebd3771
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_class_regular.learn_date
+	toColumn: LocalDateTable_0cc95645-fe0e-48a4-8695-6bc82b6ce9ea.Date
+
+relationship b549a5bd-1297-4076-945b-e613def15b97
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_class_regular.terminated_create_date
+	toColumn: LocalDateTable_5eab2070-e7b3-401c-93ff-1cbc17ca17c2.Date
+
+relationship 6e004f72-46dd-4583-bcd0-536495ac3f8f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_schedule_class.date_create
+	toColumn: LocalDateTable_90299375-b3ef-4359-b18a-e8b33eaa5d7e.Date
+
+relationship 1d046f55-04f0-4180-badd-1a7bce8d824b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_class_regular.class_openning_date
+	toColumn: LocalDateTable_536f4aa5-5588-483d-8c8d-fcc964214ab2.Date
+
+relationship 7711b266-26bd-282f-6847-40cc2877356a
+	fromColumn: fact_class_regular.chairman_teacher_id
+	toColumn: dim_teacher.teacher_id
+
+relationship 003e6106-8a37-1892-9a48-56d95fbd5a5a
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: dim_study_program.PROGRAM_MODEL
+	toColumn: dim_kpi.program_model
+
+relationship 53c5264b-82fc-11e2-e2ca-8e3892af0905
+	fromColumn: dim_kpi.month_of_report
+	toColumn: dim_date.report_date
+
+relationship b53d0c9f-b2c9-bde0-5c25-3963581c95a9
+	fromColumn: dim_teacher.level_teacher
+	toColumn: dim_level_teacher.level_teacher
+
+relationship 3453330a-f8b4-3cd8-1f84-6f204764eeef
+	fromColumn: dim_kpi.level_teacher
+	toColumn: dim_level_teacher.level_teacher
+
+relationship 8a21d90f-aeae-ec4e-ac4e-c240d61c0462
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: dim_teacher.teacher_username
+	toColumn: dim_teacher_status.teacher_code
+
+relationship 9c22d2f9-66cf-b41d-f3b0-493f080ec77e
+	fromColumn: fact_schedule_teacher.teacher_id
+	toColumn: dim_teacher.teacher_id
+
+relationship 3855eeb6-9907-629d-d607-7987af37b681
+	fromColumn: fact_schedule_teacher.date_create
+	toColumn: dim_date.report_date
+

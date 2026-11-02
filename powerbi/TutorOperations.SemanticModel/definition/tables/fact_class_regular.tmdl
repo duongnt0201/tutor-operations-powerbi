@@ -1,0 +1,217 @@
+table fact_class_regular
+	lineageTag: a40900b8-b98f-4e02-b6d2-1ee740b1f5b8
+
+	column class_code
+		dataType: string
+		lineageTag: bd826e73-75ed-4b13-b748-13be9b852641
+		summarizeBy: none
+		sourceColumn: class_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_create
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e2baa67d-5c94-4626-bd26-c5bed29a08a4
+		summarizeBy: none
+		sourceColumn: date_create
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column class_status
+		dataType: string
+		lineageTag: dfbc8776-38c3-4260-a7fc-106d2b9abd46
+		summarizeBy: none
+		sourceColumn: class_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column number_of_students
+		dataType: int64
+		formatString: 0
+		lineageTag: c3ae04ae-6617-4d85-a6fd-87168f78a097
+		summarizeBy: none
+		sourceColumn: number_of_students
+
+		annotation SummarizationSetBy = User
+
+	column grade_code
+		dataType: string
+		lineageTag: 876d6f18-d539-4ba2-b62e-6df5d74b25ff
+		summarizeBy: none
+		sourceColumn: grade_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column level_code
+		dataType: string
+		lineageTag: d964be20-4f40-464c-97a5-b5c3cb203fe7
+		summarizeBy: none
+		sourceColumn: level_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column study_program_name
+		dataType: string
+		lineageTag: d3769cda-7d24-46ea-af10-26755b738cf1
+		summarizeBy: none
+		sourceColumn: study_program_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_time
+		dataType: string
+		lineageTag: 8d966532-da99-4fe2-83df-a3db245c29e6
+		summarizeBy: none
+		sourceColumn: start_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column chairman_teacher_username
+		dataType: string
+		lineageTag: 6c65f633-ac91-4daf-9006-5e736f134fc4
+		summarizeBy: none
+		sourceColumn: chairman_teacher_username
+
+		annotation SummarizationSetBy = Automatic
+
+	column before_chairman_teacher_username
+		dataType: string
+		lineageTag: da02a586-2b22-4106-9c62-9e6288a54d76
+		summarizeBy: none
+		sourceColumn: before_chairman_teacher_username
+
+		annotation SummarizationSetBy = Automatic
+
+	column before_chairman_teacher_id
+		dataType: double
+		lineageTag: 3541a175-7fa7-45cb-9a3f-51f6289aa54f
+		summarizeBy: none
+		sourceColumn: before_chairman_teacher_id
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column learn_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 84c29671-dd8c-49c5-a638-dca400510516
+		summarizeBy: none
+		sourceColumn: learn_date
+
+		variation Variation
+			isDefault
+			relationship: 26355b14-6982-47dc-97f4-684b3ebd3771
+			defaultHierarchy: LocalDateTable_0cc95645-fe0e-48a4-8695-6bc82b6ce9ea.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column terminated_teacher_id
+		dataType: double
+		lineageTag: 79978615-d012-42e1-95b6-deaf23219573
+		summarizeBy: sum
+		sourceColumn: terminated_teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column terminated_type
+		dataType: string
+		lineageTag: 4b8963fb-ef4c-4abc-9540-54ce3dac184f
+		summarizeBy: none
+		sourceColumn: terminated_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column terminated_create_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: dfde9d82-003e-4ffe-8265-5d641706126e
+		summarizeBy: none
+		sourceColumn: terminated_create_date
+
+		variation Variation
+			isDefault
+			relationship: b549a5bd-1297-4076-945b-e613def15b97
+			defaultHierarchy: LocalDateTable_5eab2070-e7b3-401c-93ff-1cbc17ca17c2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column has_change_teacher
+		dataType: double
+		lineageTag: 8833e2f8-114b-4dca-b15c-5fb4388fbe63
+		summarizeBy: none
+		sourceColumn: has_change_teacher
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column has_terminated_ticket
+		dataType: double
+		lineageTag: f2caec52-7872-494a-9e01-8e1fa233417c
+		summarizeBy: none
+		sourceColumn: has_terminated_ticket
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column chairman_teacher_order
+		dataType: double
+		formatString: 0
+		lineageTag: e111acc0-3e24-4746-90bd-aaa0c815675d
+		summarizeBy: none
+		sourceColumn: chairman_teacher_order
+
+		annotation SummarizationSetBy = User
+
+	column chairman_teacher_id
+		dataType: double
+		lineageTag: 47306c75-07a8-4fd8-bcc2-ea3796d0ff7e
+		summarizeBy: none
+		sourceColumn: chairman_teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column class_openning_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 12d57c5b-0e70-4ba3-b819-ca5d4dc3e950
+		summarizeBy: none
+		sourceColumn: class_openning_date
+
+		variation Variation
+			isDefault
+			relationship: 1d046f55-04f0-4180-badd-1a7bce8d824b
+			defaultHierarchy: LocalDateTable_536f4aa5-5588-483d-8c8d-fcc964214ab2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fact_class_regular = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "fact_class_regular.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"class_code", type text}, {"date_create", type date}, {"class_status", type text}, {"number_of_students", Int64.Type}, {"grade_code", type text}, {"level_code", type text}, {"study_program_name", type text}, {"start_time", type text}, {"chairman_teacher_username", type text}, {"before_chairman_teacher_username", type text}, {"before_chairman_teacher_id", type number}, {"learn_date", type date}, {"terminated_teacher_id", type number}, {"terminated_type", type text}, {"terminated_create_date", type date}, {"has_change_teacher", type number}, {"has_terminated_ticket", type number}, {"chairman_teacher_order", type number}, {"chairman_teacher_id", type number}, {"class_openning_date", type date}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

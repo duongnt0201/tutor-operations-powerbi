@@ -1,0 +1,31 @@
+table dim_teacher_status
+	lineageTag: 4a3f1676-0df5-4e0a-b960-77daaf6de5ae
+
+	column teacher_code
+		dataType: string
+		lineageTag: b56a3fe5-bfc5-4c4b-80b9-8e1317392221
+		summarizeBy: none
+		sourceColumn: teacher_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column work_status
+		dataType: string
+		lineageTag: 71766380-0739-44a7-92fa-39215e9f22db
+		summarizeBy: none
+		sourceColumn: work_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_teacher_status = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "dim_teacher_status.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"teacher_code", type text}, {"work_status", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "7a0d8b9a7e8a395b01c9",
+  "position": {
+    "x": 988.33333333333337,
+    "y": 120,
+    "z": 4000,
+    "height": 305,
+    "width": 835,
+    "tabOrder": 4000
+  },
+  "visualGroup": {
+    "displayName": "% lượt học hủy",
+    "groupMode": "ScaleMode"
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "ea54615e63bc8e804a5e",
+  "position": {
+    "x": 972,
+    "y": 2434,
+    "z": 28000,
+    "height": 214,
+    "width": 800,
+    "tabOrder": 28000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "id"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.id",
+              "nativeQueryRef": "id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "date_create"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.date_create",
+              "nativeQueryRef": "date_create"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "teacher_id"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.teacher_id",
+              "nativeQueryRef": "teacher_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.status",
+              "nativeQueryRef": "status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "note"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.note",
+              "nativeQueryRef": "note"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "reason"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.reason",
+              "nativeQueryRef": "reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "teacher_status"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.teacher_status",
+              "nativeQueryRef": "teacher_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_schedule_teacher"
+                    }
+                  },
+                  "Property": "tutor_group"
+                }
+              },
+              "queryRef": "fact_schedule_teacher.tutor_group",
+              "nativeQueryRef": "tutor_group"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "f86c1a50e708a64f58ac",
+  "position": {
+    "x": 870,
+    "y": 120,
+    "z": 5000,
+    "height": 180.26431718061673,
+    "width": 290,
+    "tabOrder": 1000
+  },
+  "visualGroup": {
+    "displayName": "% nhận lớp",
+    "groupMode": "ScaleMode"
+  }
+}

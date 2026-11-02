@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "24d492517d6d79377d4e",
+  "position": {
+    "x": 279.35960591133005,
+    "y": 448.57142857142861,
+    "z": 3000,
+    "height": 305.42857142857144,
+    "width": 620.64039408867,
+    "tabOrder": 5000
+  },
+  "visualGroup": {
+    "displayName": "% HS đúng giờ",
+    "groupMode": "ScaleMode"
+  }
+}

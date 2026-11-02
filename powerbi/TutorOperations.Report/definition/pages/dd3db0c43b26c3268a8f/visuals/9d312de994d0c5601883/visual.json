@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "9d312de994d0c5601883",
+  "position": {
+    "x": 1330,
+    "y": 580,
+    "z": 8000,
+    "height": 445.71428571428572,
+    "width": 494.28571428571433,
+    "tabOrder": 8000
+  },
+  "visualGroup": {
+    "displayName": "Dữ liệu SBH thành công",
+    "groupMode": "ScaleMode"
+  }
+}

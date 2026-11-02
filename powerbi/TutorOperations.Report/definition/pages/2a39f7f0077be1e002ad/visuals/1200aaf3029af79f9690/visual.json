@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "1200aaf3029af79f9690",
+  "position": {
+    "x": 1220.3247232472324,
+    "y": 119.42435424354244,
+    "z": 9125,
+    "height": 321.21033210332104,
+    "width": 602.61254612546122,
+    "tabOrder": 7000
+  },
+  "visualGroup": {
+    "displayName": "Số ticket theo giờ",
+    "groupMode": "ScaleMode"
+  }
+}

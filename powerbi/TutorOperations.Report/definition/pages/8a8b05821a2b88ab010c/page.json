@@ -1,0 +1,70 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "8a8b05821a2b88ab010c",
+  "displayName": "3. ACS & Lớp học",
+  "displayOption": "FitToPage",
+  "height": 1060,
+  "width": 1860,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F6F5F5'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "203L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "2fa2e77abd28dc2bd6e1",
+      "target": "4a6812dcc7c847f328f1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "772948070f1a122dbb08",
+      "target": "4a6812dcc7c847f328f1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "337f1c901f573a709d88",
+      "target": "4a6812dcc7c847f328f1",
+      "type": "NoFilter"
+    },
+    {
+      "source": "337f1c901f573a709d88",
+      "target": "772948070f1a122dbb08",
+      "type": "DataFilter"
+    }
+  ]
+}

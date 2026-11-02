@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "c31f37b37882ff08d6db",
+  "position": {
+    "x": 1203.75,
+    "y": 0,
+    "z": 25000,
+    "height": 82.5,
+    "width": 383.75,
+    "tabOrder": 25000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_study_program"
+                    }
+                  },
+                  "Property": "PROGRAM_MODEL"
+                }
+              },
+              "queryRef": "dim_study_program.PROGRAM_MODEL",
+              "nativeQueryRef": "PROGRAM_MODEL",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_study_program"
+                    }
+                  },
+                  "Property": "STUDY_PROGRAM_NAME"
+                }
+              },
+              "queryRef": "dim_study_program.STUDY_PROGRAM_NAME",
+              "nativeQueryRef": "STUDY_PROGRAM_NAME",
+              "active": false
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

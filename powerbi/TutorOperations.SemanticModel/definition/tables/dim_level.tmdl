@@ -1,0 +1,43 @@
+table dim_level
+	lineageTag: 0f29d160-ab5c-48e8-aaa5-bdaf11db32a4
+
+	column CODE
+		dataType: string
+		lineageTag: 98e815a7-cba8-4742-a7b0-459c26297673
+		summarizeBy: none
+		sourceColumn: CODE
+
+		annotation SummarizationSetBy = Automatic
+
+	column NAME
+		dataType: string
+		lineageTag: 4df5541a-1354-41b8-8190-88b90adf2fcd
+		summarizeBy: none
+		sourceColumn: NAME
+
+		annotation SummarizationSetBy = Automatic
+
+	column VALUE
+		dataType: int64
+		formatString: 0
+		lineageTag: 7470c412-2d2a-42f9-8ce2-ef2d980c4880
+		summarizeBy: sum
+		sourceColumn: VALUE
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_level = m
+		mode: import
+		queryGroup: Dim
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "dim_level.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"CODE", type text}, {"NAME", type text}, {"VALUE", Int64.Type}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

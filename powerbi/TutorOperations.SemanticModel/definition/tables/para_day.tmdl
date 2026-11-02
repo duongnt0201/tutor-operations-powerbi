@@ -1,0 +1,26 @@
+table para_day
+	lineageTag: 4ce49172-cf81-404e-b51d-e2ce9c99e0e6
+
+	measure 'param_day Value' = SELECTEDVALUE('para_day'[para_day])
+		formatString: 0
+		lineageTag: 206f228c-afc6-4405-b158-4b2b94159dc1
+
+	column para_day
+		formatString: 0
+		lineageTag: 2ffe8716-648f-4910-a7c5-b39c79a388f9
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition para_day = calculated
+		mode: import
+		source = GENERATESERIES(0, 15, 1)
+
+	annotation PBI_Id = 27f4e24fbe0a4ed6a8071bacd83b5e1e
+

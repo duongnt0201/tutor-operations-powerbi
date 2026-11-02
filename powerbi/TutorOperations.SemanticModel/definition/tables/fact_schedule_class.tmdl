@@ -1,0 +1,217 @@
+table fact_schedule_class
+	lineageTag: c43c3576-2928-483f-aa39-0e2b3e48a4d8
+
+	column id
+		dataType: string
+		lineageTag: ada705af-e82d-433e-81f5-c607a7553359
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_of_report
+		dataType: dateTime
+		formatString: yyyy-mm
+		lineageTag: 5726e406-8469-41bc-8b04-0ef706a08bda
+		summarizeBy: none
+		sourceColumn: month_of_report
+
+		variation Variation
+			isDefault
+			relationship: 13ab75cb-8104-48ad-bbce-cb51e415b91d
+			defaultHierarchy: LocalDateTable_49f72aa6-9835-4f81-88e2-db31ea273fd2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column schedule_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: bf8ac78c-63f6-4c3d-a59c-5865856f102c
+		summarizeBy: none
+		sourceColumn: schedule_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column assigned_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 65679a45-f9de-427f-8d0d-d2aa98494845
+		summarizeBy: none
+		sourceColumn: assigned_date
+
+		variation Variation
+			isDefault
+			relationship: 114ff329-450e-48d1-9044-66b413474071
+			defaultHierarchy: LocalDateTable_997e0e23-161e-474e-8801-96525bed73a1.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column schedule_status
+		dataType: string
+		lineageTag: 917f1ea7-91fa-43bb-aff0-0c5102a67c7b
+		summarizeBy: none
+		sourceColumn: schedule_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: string
+		lineageTag: 2996e7fb-6c5d-45f6-8700-245c87a0229c
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_time
+		dataType: string
+		lineageTag: dd1ba795-6e22-44aa-b565-15409ae39c49
+		summarizeBy: none
+		sourceColumn: start_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_time
+		dataType: string
+		lineageTag: a78cec75-a65a-408f-80c3-622eec80586d
+		summarizeBy: none
+		sourceColumn: end_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_schedule_required
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d9a8e23-5bdf-4bfd-9094-c24aedb77693
+		summarizeBy: sum
+		sourceColumn: is_schedule_required
+
+		annotation SummarizationSetBy = Automatic
+
+	column schedule_type
+		dataType: string
+		lineageTag: de256325-90e0-40e7-b024-aed6eda1a9d7
+		summarizeBy: none
+		sourceColumn: schedule_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4453da0d-a225-48a5-b063-65425e79af37
+		summarizeBy: sum
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_username
+		dataType: string
+		lineageTag: 12260a93-d413-4d75-ba11-52f3cc32772b
+		summarizeBy: none
+		sourceColumn: teacher_username
+
+		annotation SummarizationSetBy = Automatic
+
+	column tutor_group
+		dataType: string
+		lineageTag: 86ce7c7f-bbc3-43bc-bfbb-1744f62d3727
+		summarizeBy: none
+		sourceColumn: tutor_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_teacher_status
+		dataType: string
+		lineageTag: 288eaa35-6a1d-4ce0-81d9-6bec7f539556
+		summarizeBy: none
+		sourceColumn: monthly_teacher_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_code
+		dataType: string
+		lineageTag: 5406902d-cbca-46f3-9060-1f2b9c0ec016
+		summarizeBy: none
+		sourceColumn: session_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column class_code
+		dataType: string
+		lineageTag: e4ce5033-9775-456a-8ab2-54117c3377ee
+		summarizeBy: none
+		sourceColumn: class_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekofmonth = RELATED(dim_date[week_of_year])
+		formatString: 0
+		lineageTag: c349856e-5e76-4a74-aee2-53052d820778
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column evening_shift
+		dataType: int64
+		formatString: 0
+		lineageTag: 4887ab6c-e2d8-4c72-bc51-7d018ba91aae
+		summarizeBy: sum
+		sourceColumn: evening_shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column peak_shift
+		dataType: int64
+		formatString: 0
+		lineageTag: 9dd96d5c-4fe5-4c0b-83cd-0a5e5935c31c
+		summarizeBy: sum
+		sourceColumn: peak_shift
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_assigned = SWITCH(TRUE(), fact_schedule_class[schedule_status] in {"ASSIGNED", "MONITOR_BACKUP"}, 1, 0)
+		formatString: 0
+		lineageTag: e9f7eb13-4901-4f73-b28c-789813c51b61
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_create
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ee4f257d-bb95-4bfe-ab9d-e1d8ca911161
+		summarizeBy: none
+		sourceColumn: date_create
+
+		variation Variation
+			isDefault
+			relationship: 6e004f72-46dd-4583-bcd0-536495ac3f8f
+			defaultHierarchy: LocalDateTable_90299375-b3ef-4359-b18a-e8b33eaa5d7e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition fact_schedule_class = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "fact_schedule_class.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"id", type text}, {"month_of_report", type date}, {"schedule_date", type date}, {"assigned_date", type date}, {"schedule_status", type text}, {"day_of_week", type text}, {"start_time", type text}, {"end_time", type text}, {"is_schedule_required", Int64.Type}, {"schedule_type", type text}, {"teacher_id", Int64.Type}, {"teacher_username", type text}, {"tutor_group", type text}, {"monthly_teacher_status", type text}, {"session_code", type text}, {"class_code", type text}, {"evening_shift", Int64.Type}, {"peak_shift", Int64.Type}, {"date_create", type date}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

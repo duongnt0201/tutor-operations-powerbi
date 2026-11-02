@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "0b9fb8d8fcfb421c1da9",
+  "position": {
+    "x": 330,
+    "y": 14.155844155844157,
+    "z": 3000,
+    "height": 55.844155844155843,
+    "width": 320.09569377990431,
+    "tabOrder": 10000
+  },
+  "visualGroup": {
+    "displayName": "Mốc PS",
+    "groupMode": "ScaleMode"
+  },
+  "parentGroupName": "5365af605c3c2a08be17"
+}

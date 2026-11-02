@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "2a39f7f0077be1e002ad",
+  "displayName": "1. Xếp lớp",
+  "displayOption": "FitToPage",
+  "height": 1060,
+  "width": 1860,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ad5a4ca02a94aa918104",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_grade"
+              }
+            },
+            "Property": "code"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "User",
+        "objects": {
+          "general": [
+            {
+              "properties": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F6F5F5'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "width": {
+            "expr": {
+              "Literal": {
+                "Value": "203L"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visualInteractions": [
+    {
+      "source": "19fa5e51fee739f877fd",
+      "target": "22ee12933ff8e4013ee5",
+      "type": "DataFilter"
+    },
+    {
+      "source": "19fa5e51fee739f877fd",
+      "target": "d1cbd7608dc47f4fc148",
+      "type": "NoFilter"
+    }
+  ]
+}

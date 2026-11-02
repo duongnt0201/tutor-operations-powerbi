@@ -1,0 +1,26 @@
+table para_backup
+	lineageTag: 24514939-0b00-43cd-9d6d-3e262f2b3a5c
+
+	measure 'param_backup Value' = SELECTEDVALUE('para_backup'[para_backup])
+		formatString: 0
+		lineageTag: b6795699-bdc1-4918-9646-7a755f2c6947
+
+	column para_backup
+		formatString: 0
+		lineageTag: 886446c6-9446-42d3-a394-8fd5138fed29
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition para_backup = calculated
+		mode: import
+		source = GENERATESERIES(1, 15, 1)
+
+	annotation PBI_Id = 76c1415373f048de8fd1abc4e48fef37
+

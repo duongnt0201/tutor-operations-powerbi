@@ -1,0 +1,265 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "6d1e2e9088eb83980a7a",
+  "position": {
+    "x": 993.73831775700933,
+    "y": 105.74766355140187,
+    "z": 4000,
+    "height": 259.29906542056074,
+    "width": 866.26168224299067,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "task_arrange_class_id"
+                }
+              },
+              "queryRef": "fact_arrange_class.task_arrange_class_id",
+              "nativeQueryRef": "task_arrange_class_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "class_code"
+                }
+              },
+              "queryRef": "fact_arrange_class.class_code",
+              "nativeQueryRef": "class_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "grade_code"
+                }
+              },
+              "queryRef": "fact_arrange_class.grade_code",
+              "nativeQueryRef": "grade_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "level_code"
+                }
+              },
+              "queryRef": "fact_arrange_class.level_code",
+              "nativeQueryRef": "level_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "arrange_class_method"
+                }
+              },
+              "queryRef": "fact_arrange_class.arrange_class_method",
+              "nativeQueryRef": "arrange_class_method"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "arrange_create_date"
+                }
+              },
+              "queryRef": "fact_arrange_class.arrange_create_date",
+              "nativeQueryRef": "arrange_create_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "arrange_success_date"
+                }
+              },
+              "queryRef": "fact_arrange_class.arrange_success_date",
+              "nativeQueryRef": "arrange_success_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "arrange_status"
+                }
+              },
+              "queryRef": "fact_arrange_class.arrange_status",
+              "nativeQueryRef": "arrange_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "arrange_type"
+                }
+              },
+              "queryRef": "fact_arrange_class.arrange_type",
+              "nativeQueryRef": "arrange_type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "ptc_date"
+                }
+              },
+              "queryRef": "fact_arrange_class.ptc_date",
+              "nativeQueryRef": "ptc_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "order_id"
+                }
+              },
+              "queryRef": "fact_arrange_class.order_id",
+              "nativeQueryRef": "order_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "phone"
+                }
+              },
+              "queryRef": "fact_arrange_class.phone",
+              "nativeQueryRef": "phone"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "student_id"
+                }
+              },
+              "queryRef": "fact_arrange_class.student_id",
+              "nativeQueryRef": "student_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "first_learn_date"
+                }
+              },
+              "queryRef": "fact_arrange_class.first_learn_date",
+              "nativeQueryRef": "first_learn_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "study_program"
+                }
+              },
+              "queryRef": "fact_arrange_class.study_program",
+              "nativeQueryRef": "study_program"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_arrange_class"
+                    }
+                  },
+                  "Property": "package_name"
+                }
+              },
+              "queryRef": "fact_arrange_class.package_name",
+              "nativeQueryRef": "package_name"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_arrange_class"
+                  }
+                },
+                "Property": "task_arrange_class_id"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

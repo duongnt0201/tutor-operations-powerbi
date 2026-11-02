@@ -1,0 +1,12 @@
+# Power BI: never commit data or local state
+*.pbix
+*.abf
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/editorSettings.json
+**/CustomVisuals/
+
+# Python
+__pycache__/
+*.pyc
+.venv/

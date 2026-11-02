@@ -1,0 +1,79 @@
+table fact_schedule_teacher
+	lineageTag: 791dd2a2-7f75-4220-95b4-37233fe714c7
+
+	column id
+		dataType: string
+		lineageTag: c31f8b65-2e59-4271-b920-4534f4489ee7
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_id
+		dataType: int64
+		lineageTag: 86f80763-2fc1-494b-b7e0-3eb0e099819e
+		summarizeBy: none
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column status
+		dataType: string
+		lineageTag: feaeeec4-fd15-4f15-8fd2-aaa3bcd88c27
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column tutor_group
+		dataType: string
+		lineageTag: 93613cbe-a34b-4f10-a14a-e2dca3e61a6b
+		summarizeBy: none
+		sourceColumn: tutor_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_create
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e15de891-b34b-4938-8ed6-b9a8d6caf6d4
+		summarizeBy: none
+		sourceColumn: date_create
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column teacher_status
+		dataType: string
+		lineageTag: 3248c77b-bf48-4091-a5b2-7aaf45778593
+		summarizeBy: none
+		sourceColumn: teacher_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column code
+		dataType: string
+		lineageTag: 079bcc08-e400-420c-81dd-ee2688ce189e
+		summarizeBy: none
+		sourceColumn: code
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_schedule_teacher = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "fact_schedule_teacher.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"id", type text}, {"teacher_id", Int64.Type}, {"status", type text}, {"tutor_group", type text}, {"date_create", type date}, {"teacher_status", type text}, {"code", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

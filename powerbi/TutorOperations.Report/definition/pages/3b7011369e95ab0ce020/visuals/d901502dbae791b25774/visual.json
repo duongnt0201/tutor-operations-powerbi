@@ -1,0 +1,85 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "d901502dbae791b25774",
+  "position": {
+    "x": 996,
+    "y": 1878,
+    "z": 26000,
+    "height": 214,
+    "width": 800,
+    "tabOrder": 26000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "teacher_id"
+                }
+              },
+              "queryRef": "fact_regular_session.teacher_id",
+              "nativeQueryRef": "teacher_id"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "A - Measure"
+                    }
+                  },
+                  "Property": "số lớp"
+                }
+              },
+              "queryRef": "A - Measure.số lớp",
+              "nativeQueryRef": "Total_session",
+              "displayName": "Total_session"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "A - Measure"
+                    }
+                  },
+                  "Property": "số lớp bị backup"
+                }
+              },
+              "queryRef": "A - Measure.số lớp bị backup",
+              "nativeQueryRef": "Backup_session",
+              "displayName": "Backup_session"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "A - Measure"
+                  }
+                },
+                "Property": "số lớp bị backup"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

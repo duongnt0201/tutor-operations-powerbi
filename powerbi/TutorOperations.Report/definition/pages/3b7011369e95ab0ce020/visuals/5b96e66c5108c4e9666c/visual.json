@@ -1,0 +1,308 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "5b96e66c5108c4e9666c",
+  "position": {
+    "x": 1013,
+    "y": 756,
+    "z": 11000,
+    "height": 502,
+    "width": 847,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "class_code"
+                }
+              },
+              "queryRef": "fact_regular_session.class_code",
+              "nativeQueryRef": "class_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "class_session_code"
+                }
+              },
+              "queryRef": "fact_regular_session.class_session_code",
+              "nativeQueryRef": "class_session_code"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "session_number"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.session_number)",
+              "nativeQueryRef": "session_number"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "learn_date"
+                }
+              },
+              "queryRef": "fact_regular_session.learn_date",
+              "nativeQueryRef": "learn_date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "session_status"
+                }
+              },
+              "queryRef": "fact_regular_session.session_status",
+              "nativeQueryRef": "session_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "session_type"
+                }
+              },
+              "queryRef": "fact_regular_session.session_type",
+              "nativeQueryRef": "session_type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "student_id"
+                }
+              },
+              "queryRef": "fact_regular_session.student_id",
+              "nativeQueryRef": "student_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "student_status"
+                }
+              },
+              "queryRef": "fact_regular_session.student_status",
+              "nativeQueryRef": "student_status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "is_success_session"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.is_success_session)",
+              "nativeQueryRef": "is_success_session"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "is_student_on_time"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.is_student_on_time)",
+              "nativeQueryRef": "is_student_on_time"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "student_early_in_minutes"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.student_early_in_minutes)",
+              "nativeQueryRef": "student_early_in_minutes"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "is_teacher_on_time"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.is_teacher_on_time)",
+              "nativeQueryRef": "is_teacher_on_time"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "teacher_early_in_minutes"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.teacher_early_in_minutes)",
+              "nativeQueryRef": "teacher_early_in_minutes"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "study_program_name"
+                }
+              },
+              "queryRef": "fact_regular_session.study_program_name",
+              "nativeQueryRef": "study_program_name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "is_backup"
+                }
+              },
+              "queryRef": "Sum(fact_regular_session.is_backup)",
+              "nativeQueryRef": "is_backup"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fact_regular_session"
+                    }
+                  },
+                  "Property": "teacher_id"
+                }
+              },
+              "queryRef": "fact_regular_session.teacher_id",
+              "nativeQueryRef": "teacher_id"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fact_regular_session"
+                  }
+                },
+                "Property": "class_code"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Data raw xuất số Session học '"
+                }
+              }
+            },
+            "fontFamily": {
+              "expr": {
+                "Literal": {
+                  "Value": "'''Segoe UI Semibold'', wf_segoe-ui_semibold, helvetica, arial, sans-serif'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "13D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

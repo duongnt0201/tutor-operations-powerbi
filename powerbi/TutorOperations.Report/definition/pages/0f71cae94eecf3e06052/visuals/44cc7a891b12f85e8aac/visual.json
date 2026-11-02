@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "44cc7a891b12f85e8aac",
+  "position": {
+    "x": 280,
+    "y": 120,
+    "z": 6000,
+    "height": 475.24229074889865,
+    "width": 570,
+    "tabOrder": 3000
+  },
+  "visualGroup": {
+    "displayName": "% GS đạt chuẩn",
+    "groupMode": "ScaleMode"
+  }
+}

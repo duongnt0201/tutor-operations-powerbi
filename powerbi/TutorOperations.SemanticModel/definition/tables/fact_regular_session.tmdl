@@ -1,0 +1,264 @@
+table fact_regular_session
+	lineageTag: 5f80b1d2-9449-467f-8f2d-fdd7ac283c77
+
+	column class_code
+		dataType: string
+		lineageTag: 6ba7b85a-b6da-4923-b4df-867aa867c7e0
+		summarizeBy: none
+		sourceColumn: class_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a06b2a8-4e8a-4608-bcbe-fea39214a15d
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = User
+
+	column learn_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 77573721-8129-4a32-b20f-30d816fc70b2
+		summarizeBy: none
+		sourceColumn: learn_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column is_student_on_time
+		dataType: int64
+		formatString: 0
+		lineageTag: f803a5d4-cb8e-4af3-bec7-6f2f0e265b96
+		summarizeBy: none
+		sourceColumn: is_student_on_time
+
+		annotation SummarizationSetBy = User
+
+	column student_early_in_minutes
+		dataType: double
+		lineageTag: f119a47a-2bd1-4ab9-b98d-13680bff91cb
+		summarizeBy: none
+		sourceColumn: student_early_in_minutes
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column class_session_code
+		dataType: string
+		lineageTag: d4c9faf0-aa96-437c-b834-2d7d44d5bbac
+		summarizeBy: none
+		sourceColumn: class_session_code
+		sortByColumn: session_number
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_number
+		dataType: int64
+		formatString: 0
+		lineageTag: 7df57474-5160-4129-831e-df9794cc198a
+		summarizeBy: none
+		sourceColumn: session_number
+
+		annotation SummarizationSetBy = User
+
+	column session_status
+		dataType: string
+		lineageTag: 1ec751ea-a7a2-4730-85ba-927bc3d6de09
+		summarizeBy: none
+		sourceColumn: session_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_status
+		dataType: string
+		lineageTag: f8d06b3c-4e59-436c-b4ff-4de5f56c1f4c
+		summarizeBy: none
+		sourceColumn: student_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_type
+		dataType: string
+		lineageTag: 3af28233-5ed0-4fa8-958d-9edbe8a5ff82
+		summarizeBy: none
+		sourceColumn: session_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_success_session
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d003bc0-72a8-47b9-82d7-c7d8f66dfcde
+		summarizeBy: none
+		sourceColumn: is_success_session
+
+		annotation SummarizationSetBy = User
+
+	column is_teacher_on_time
+		dataType: int64
+		formatString: 0
+		lineageTag: c007cc19-8bf7-438e-b4e7-c8b935d2788f
+		summarizeBy: none
+		sourceColumn: is_teacher_on_time
+
+		annotation SummarizationSetBy = User
+
+	column teacher_early_in_minutes
+		dataType: double
+		lineageTag: b56910fc-e917-401e-86e2-d99d679f466f
+		summarizeBy: none
+		sourceColumn: teacher_early_in_minutes
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column learn_month = EOMONTH(fact_regular_session[learn_date], 0)
+		formatString: yyyy-mm
+		lineageTag: de0f816e-a5f5-4d79-9df3-bcb109ede484
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 4721a981-75d9-4c74-ba4f-8da555ab71f1
+			defaultHierarchy: LocalDateTable_c8c78385-51f7-4029-88c5-ced135a495f4.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	column grade_code
+		dataType: string
+		lineageTag: d50bb1d7-96b0-4f14-903e-3f6dcba3fc63
+		summarizeBy: none
+		sourceColumn: grade_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column teacher_id
+		dataType: double
+		formatString: 0
+		lineageTag: a9128f76-f783-40b7-bea4-af31e230e9c2
+		summarizeBy: none
+		sourceColumn: teacher_id
+
+		annotation SummarizationSetBy = User
+
+	column level_code
+		dataType: string
+		lineageTag: fecf4920-7595-426e-9baf-ea19cedd770e
+		summarizeBy: none
+		sourceColumn: level_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column chairman_teacher_id
+		dataType: string
+		lineageTag: 55853092-4cd6-43d0-8cf3-f3312463ea7a
+		summarizeBy: none
+		sourceColumn: chairman_teacher_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_backup
+		dataType: double
+		formatString: 0
+		lineageTag: df31ec68-21d6-41d7-8e16-89b9a530fafe
+		summarizeBy: none
+		sourceColumn: is_backup
+
+		annotation SummarizationSetBy = User
+
+	column study_program_name
+		dataType: string
+		lineageTag: d3d1aac9-3db9-4094-ba38-285307ada6f4
+		summarizeBy: none
+		sourceColumn: study_program_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_time
+		dataType: string
+		lineageTag: 0b100ef1-14f0-4a76-8fab-d38b20eb3abb
+		summarizeBy: none
+		sourceColumn: start_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_number_type =
+			
+			VAR cur_teacher = 'fact_regular_session'[teacher_id]
+			VAR cur_class = 'fact_regular_session'[class_code]
+			VAR cur_week = RELATED('dim_date'[week_of_year])
+			VAR cur_date = 'fact_regular_session'[learn_date]
+			VAR cur_start_time = 'fact_regular_session'[start_time]
+			VAR x =
+			    RANKX(
+			        FILTER(
+			            'fact_regular_session',
+			            'fact_regular_session'[teacher_id] = cur_teacher
+			                && 'fact_regular_session'[class_code] = cur_class
+			                && RELATED('dim_date'[week_of_year]) = cur_week
+			        ),
+			        'fact_regular_session'[learn_date] & 'fact_regular_session'[start_time],
+			        cur_date & cur_start_time,
+			        ASC,
+			        DENSE
+			    )
+			RETURN
+			"Buổi " & x
+		lineageTag: 5545344e-0a77-4541-9249-801304260f3d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column absence_type
+		dataType: string
+		lineageTag: 7fb11e4a-791f-4873-a2c4-6645e8599d93
+		summarizeBy: none
+		sourceColumn: absence_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column absence_status
+		dataType: string
+		lineageTag: 2942ba9a-b35f-4cee-b5cd-9aa8e13b9363
+		summarizeBy: none
+		sourceColumn: absence_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column chairman_teacher_username = LOOKUPVALUE(dim_teacher[teacher_username], dim_teacher[teacher_id], fact_regular_session[chairman_teacher_id])
+		lineageTag: 8dc897f7-4af8-4175-b35b-062a03199b43
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_regular_session = m
+		mode: import
+		queryGroup: Fact
+		source =
+				let
+				    Source = Csv.Document(File.Contents(SampleDataPath & "fact_regular_session.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"class_code", type text}, {"student_id", Int64.Type}, {"learn_date", type date}, {"is_student_on_time", Int64.Type}, {"student_early_in_minutes", type number}, {"class_session_code", type text}, {"session_number", Int64.Type}, {"session_status", type text}, {"student_status", type text}, {"session_type", type text}, {"is_success_session", Int64.Type}, {"is_teacher_on_time", Int64.Type}, {"teacher_early_in_minutes", type number}, {"grade_code", type text}, {"teacher_id", type number}, {"level_code", type text}, {"chairman_teacher_id", type text}, {"is_backup", type number}, {"study_program_name", type text}, {"start_time", type text}, {"absence_type", type text}, {"absence_status", type text}}, "en-US")
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

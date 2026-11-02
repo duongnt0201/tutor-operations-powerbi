@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "f2078597788e461979cb",
+  "position": {
+    "x": 0,
+    "y": 160.59911894273128,
+    "z": 2000,
+    "height": 314.6431718061674,
+    "width": 545.28901734104045,
+    "tabOrder": 2000
+  },
+  "visualGroup": {
+    "displayName": "Cơ cấu GS",
+    "groupMode": "ScaleMode"
+  },
+  "parentGroupName": "44cc7a891b12f85e8aac"
+}

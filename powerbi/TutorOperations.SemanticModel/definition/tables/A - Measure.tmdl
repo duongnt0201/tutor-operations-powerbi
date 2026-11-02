@@ -1,0 +1,1460 @@
+table 'A - Measure'
+	lineageTag: 6bb0ba88-033a-46a7-910b-8fcf0e21a96d
+
+	measure 'tổng số ticket xếp lớp' = DISTINCTCOUNT(fact_arrange_class[TASK_ARRANGE_CLASS_ID])
+		formatString: #,0
+		displayFolder: 1. Xếp lớp
+		lineageTag: 8ca3ff44-3373-47e8-ad95-96ff478b3577
+
+	measure 'số đơn PTC' =
+			//CALCULATE(
+			    DISTINCTCOUNT(fact_arrange_class[order_id])
+			//     , fact_arrange_class[order_status]= 1
+			// )
+		formatString: #,0
+		displayFolder: 1. Xếp lớp
+		lineageTag: 4631b876-efa3-4985-81d3-f749fb8f39aa
+
+	measure 'số đơn chưa liên hệ' =
+			
+			CALCULATE(
+			    [số đơn PTC],
+			    ISBLANK(fact_arrange_class[call_status]),
+			    fact_arrange_class[arrange_type] = "NEW"
+			)
+		formatString: 0
+		displayFolder: 1. Xếp lớp
+		lineageTag: 230fb981-b03e-4ed0-8ebd-e075401ef3f8
+
+	measure 'số đơn xếp lớp D ngày' = ```
+			
+			-- Tỷ lệ liên hệ thành công trong D+x (x: nhập số vào báo cáo tự nhảy số theo)
+			var _slt = SELECTEDVALUE(para_day[para_day], 5) 
+			RETURN
+			CALCULATE(
+			    [số đơn PTC]
+			    , fact_arrange_class[ARRANGE_STATUS] = "DONE"
+			    , fact_arrange_class[arrange_type] = "NEW"
+			    , DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[arrange_success_date], DAY) <=  _slt
+			)
+			```
+		formatString: #,0
+		displayFolder: 1. Xếp lớp
+		lineageTag: 8053f527-78ba-408f-be21-14079d63cda3
+
+	measure '% số đơn chưa liên hệ' = DIVIDE([số đơn chưa liên hệ], [số đơn PTC], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Xếp lớp
+		lineageTag: b6afd849-d15d-4439-99a0-52cf8cb0129e
+
+	measure 'số HS' = CALCULATE(DISTINCTCOUNT(fact_arrange_class[student_id]), not ISBLANK(fact_arrange_class[order_id]))
+		formatString: #,0
+		displayFolder: 1. Xếp lớp
+		lineageTag: 76b0eb5f-2bb6-4b12-aa34-e386c7048a2f
+
+	measure '% HS khai giảng D ngày' = ```
+			
+			var _slt = SELECTEDVALUE(para_day[para_day], 10) 
+			var x = 
+			CALCULATE(
+			    [số HS]
+			    , fact_arrange_class[arrange_type] = "NEW"
+			    , DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[first_learn_date], DAY) =  _slt
+			)
+			RETURN
+			DIVIDE(x, [số HS],BLANK())
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Xếp lớp
+		lineageTag: 865007cf-4309-48b0-8ef6-4fcd8c76a2da
+
+	measure 'số lượt học thực tế' =
+			CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED", "SUCCESS"}
+			)
+		formatString: #,0
+		displayFolder: 2. ACS
+		lineageTag: ccbe6895-be5f-4c50-a803-a32e09358b6f
+
+	measure 'số buổi học thực tế' =
+			CALCULATE(
+			    DISTINCTCOUNT(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED", "SUCCESS"}
+			)
+		formatString: #,0
+		displayFolder: 2. ACS
+		lineageTag: 0e311210-8d55-48fe-ae75-162944d96fb2
+
+	measure ACS = DIVIDE([số lượt học thực tế], [số buổi học thực tế], BLANK())
+		formatString: 0.00
+		displayFolder: 2. ACS
+		lineageTag: 9a06bbb1-1f09-4a49-95b3-d03dc99c6136
+
+	measure 'số HS KG' =
+			CALCULATE(
+			    [số HS regular]
+			    , fact_regular_session[session_type] = "FIRST_TIME"
+			)
+		formatString: #,0
+		displayFolder: 3. Khai giảng
+		lineageTag: 760b60f3-3119-45ec-9f1b-c52894b928e1
+
+	measure 'số HS KG thành công' =
+			CALCULATE(
+			    [số HS KG]
+			    , fact_regular_session[student_status] = "SUCCESS"
+			)
+		formatString: #,0
+		displayFolder: 3. Khai giảng
+		lineageTag: 8c42a694-8d44-4f81-8709-bdcaca1a9554
+
+	measure 'số HS regular' = DISTINCTCOUNT(fact_regular_session[student_id])
+		formatString: #,0
+		displayFolder: 3. Khai giảng
+		lineageTag: aae4c34e-e390-4cc4-9d22-e94d187b770e
+
+	measure '% HS regular failed 4 buổi đầu' = DIVIDE([số HS regular failed 4 buổi đầu], [số HS regular], BLANK())
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: d377923f-5c73-437b-8b96-597170ac43f4
+
+	measure 'số lớp mở thực tế' = DISTINCTCOUNT(fact_regular_session[class_session_code])
+		formatString: #,0
+		displayFolder: 3. Khai giảng
+		lineageTag: e43fe3ce-e6ef-48bf-8986-87fc307f8b39
+
+	measure 'số lớp mở thành công thực tế' =
+			CALCULATE(
+			    [số lớp mở thực tế]
+			    , fact_regular_session[session_status] in {"DONE", "DONE_1", "DONE_2"}
+			)
+		formatString: #,0
+		displayFolder: 3. Khai giảng
+		lineageTag: 3a35e264-8579-4f44-8f4b-8717cbc6cb7f
+
+	measure '% lớp học thành công' = DIVIDE([số lớp mở thành công thực tế], [số lớp mở thực tế], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3. Khai giảng
+		lineageTag: 98212866-67ad-4bfb-8b5e-a53d916f3306
+
+	measure 'số lớp hủy thực tế' = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_regular_session[class_session_code]),
+			    fact_regular_session[session_status] <> "DONE",
+			    fact_regular_session[session_status] <> "DONE_1",
+			    fact_regular_session[session_status] <> "DONE_2",
+			    fact_regular_session[student_status] <> "REMOVED_STUDENT"
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: bb95379e-20ae-4bfb-a1ac-fd458554e99c
+
+	measure '% lớp hủy do GS' = DIVIDE([số lớp hủy do GS], [số lớp mở thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 6ab93cd5-0f00-424e-9bd3-7892b857a589
+
+	measure '% lớp hủy do GVCN' = DIVIDE([số lớp hủy do GVCN], [số lớp mở thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 4ca21a9f-9198-47fb-9dff-a309a3fb2ad1
+
+	measure 'số lớp' =
+			CALCULATE(
+			    DISTINCTCOUNT(fact_regular_session[class_code])
+			    // , not ISBLANK(fact_regular_session[class_code])
+			    , fact_regular_session[session_status] = "DONE"
+			    , fact_regular_session[student_status] in {"SUCCESS", "FAILED_STUDENT_NO_LEARNED"}
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 1e9ffd20-5231-4324-857c-a6a7d1007d04
+
+	measure 'số lớp bị backup' =
+			CALCULATE(
+			    [số lớp]
+			    , fact_regular_session[is_backup] = 1
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 3bf63e72-9292-4afa-a419-824a7f0f19a2
+
+	measure 'số lớp bị backup x+ lần' =
+			
+			VAR _slt = SELECTEDVALUE(para_backup[para_backup], 2)
+			RETURN
+			COUNTROWS(
+			    FILTER(
+			        SUMMARIZECOLUMNS(
+			            fact_regular_session[learn_month],
+			            fact_regular_session[class_code],
+			
+			            "total_session",
+			                CALCULATE(
+			                    DISTINCTCOUNT(fact_regular_session[class_session_code]),
+			                    fact_regular_session[session_status] = "DONE",
+			                    fact_regular_session[student_status] IN {
+			                        "SUCCESS",
+			                        "FAILED_STUDENT_NO_LEARNED"
+			                    }
+			                ),
+			
+			            "total_backup_session",
+			                CALCULATE(
+			                    DISTINCTCOUNT(fact_regular_session[class_session_code]),
+			                    fact_regular_session[is_backup] = 1,
+			                    fact_regular_session[session_status] = "DONE",
+			                    fact_regular_session[student_status] IN {
+			                        "SUCCESS",
+			                        "FAILED_STUDENT_NO_LEARNED"
+			                    }
+			                )
+			        ),
+			        [total_backup_session] >= _slt
+			            && NOT ISBLANK(fact_regular_session[class_code])
+			    )
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 45eeb06a-5dc6-46ae-a586-5a5b51905181
+
+	measure '% lớp bị backup' = DIVIDE([số lớp bị backup], [số lớp], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Lớp BU
+		lineageTag: c88ab468-ab07-4185-babd-fe5bbc65ee05
+
+	measure '% lớp bị backup x lần' = DIVIDE([số lớp bị backup x+ lần], [số lớp], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 5. Lớp BU
+		lineageTag: 9ef0e375-578b-4b6f-88d6-9639436f19e3
+
+	measure '% lớp hủy do hệ thống' = DIVIDE([số lớp hủy do hệ thống], [số lớp mở thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 736b8406-fc65-4ac5-842e-a232407ae283
+
+	measure '% lớp hủy do vận hành' = DIVIDE([số lớp hủy do vận hành], [số lớp mở thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 563c2370-0376-4d8d-ada8-e4426898c6fb
+
+	measure 'tổng lượt học diễn ra thực tế' =
+			CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED", "SUCCESS"}
+			)
+		formatString: #,0
+		displayFolder: 4. Lượt học
+		lineageTag: 112121b3-21f3-4580-80d4-bc59a33a0f3c
+
+	measure 'tổng lượt học đảm bảo xếp thành công' =
+			CALCULATE(
+			    // COUNT(fact_regular_session[student_id])
+			    [tổng lượt học diễn ra thực tế]
+			    , fact_regular_session[is_success_session] = 1
+			    // ,fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED", "SUCCESS"}
+			)
+		formatString: #,0
+		displayFolder: 4. Lượt học
+		lineageTag: 0541c21c-beda-4c3b-bae5-d96e75aaa151
+
+	measure '% lượt học thành công' = DIVIDE([tổng lượt học đảm bảo xếp thành công], [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4. Lượt học
+		lineageTag: 596bb647-b8e2-48b7-a2ab-ed45a8152208
+
+	measure 'tổng lượt học hủy do HS có bù' =
+			CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"RESCHEDULED"} -- -> có học bù
+			)
+		formatString: 0
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 93a05d44-2a38-479c-b120-33fe6e7fe61f
+
+	measure '% lượt học hủy do HS có bù' = DIVIDE([tổng lượt học hủy do HS có bù], [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 18ce8ed7-2ca3-4b45-aaae-2541922620db
+
+	measure '% lượt học hủy do GS' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_TEACHER"}
+			)
+			RETURN DIVIDE(x, [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: ca423d6e-2236-4332-9e6c-753200743779
+
+	measure '% lượt học hủy do GVCN' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_MINISTRY"}
+			)
+			RETURN DIVIDE(x, [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: ab0688ff-3e86-46df-b817-135fc971b8ce
+
+	measure '% lượt học hủy do vận hành' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_TECHNICAL"}
+			)
+			RETURN DIVIDE(x, [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: e821a53b-a4db-4cdb-ad57-4504fccd52cc
+
+	measure '% lượt học hủy do hệ thống' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_SYSTEM"}
+			)
+			RETURN DIVIDE(x, [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 48874807-9e97-4c23-aa32-f16e9bfce7b4
+
+	measure '% lượt học vào lớp đúng giờ' =
+			
+			var x = CALCULATE(
+			    [tổng lượt học diễn ra thực tế]
+			    , fact_regular_session[is_student_on_time] = 1
+			)
+			RETURN DIVIDE(x, [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 84853975-34e5-40bd-b75e-a5486d689487
+
+	measure '% HS vào muộn x phút' =
+			
+			VAR _slt = SELECTEDVALUE(para_minute[para_minute], 2)
+			var x =
+			    CALCULATE(
+			        [tổng lượt học diễn ra thực tế]
+			        , fact_regular_session[student_early_in_minutes] = _slt
+			    )
+			RETURN DIVIDE(x, [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: b1c87687-c0ab-4015-aff4-e58ff8f90cfb
+
+	measure 'số HS nghỉ > 1 buổi trong tháng' = ```
+			
+			VAR _student_cancel =
+			    SUMMARIZE(
+			        FILTER(
+			            fact_regular_session,
+			            fact_regular_session[student_status] <> "SUCCESS" 
+			            && CONTAINSSTRING(fact_regular_session[session_status], "DONE")
+			        ),
+			        fact_regular_session[student_id],
+			        "cancel_cnt", COUNTROWS(fact_regular_session)
+			    )
+			RETURN
+			COUNTROWS(
+			    FILTER(
+			        _student_cancel,
+			        [cancel_cnt] > 1
+			    )
+			)
+			```
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 57773198-9e75-46b5-ae44-0edb99d7e94b
+
+	measure 'số lịch đăng ký' = ```
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( fact_schedule_class[id] ),
+			    FILTER (
+			        fact_schedule_class,
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "18:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "19:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "20:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "21:00" )
+			    )
+			    ,not fact_schedule_class[schedule_status] in {"WAITING_CANCELLATION_CONFIRMATION", "CANCELED"}
+			    , dim_teacher_status[work_status] <> "Sắp nghỉ"
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: b257683b-5a74-4105-8f9e-dec14db99b7d
+
+	measure 'Nhãn update' = "Cập nhật đến: " & TODAY()
+		displayFolder: 0. Other
+		lineageTag: 4d5cc559-991b-46d2-8cc6-e3bdc06de0c7
+
+	measure '% ticket done' =
+			
+			var x = CALCULATE([tổng số ticket xếp lớp], fact_arrange_class[arrange_status] = "DONE")
+			RETURN DIVIDE(x, [tổng số ticket xếp lớp], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Xếp lớp
+		lineageTag: 7241b875-33e0-4e64-a178-72e7c2678758
+
+	measure '% đơn xếp lớp D ngày' = DIVIDE([số đơn xếp lớp D ngày], [số đơn PTC D ngày],BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 1. Xếp lớp
+		lineageTag: 036c0870-b407-4ed7-b377-badad90295e5
+
+	measure 'thời gian assign TB' =
+			CALCULATE(
+			    AVERAGE(fact_arrange_class[day_to_assigned_arrange])
+			    , fact_arrange_class[arrange_type] = "NEW"
+			)
+		displayFolder: 1. Xếp lớp
+		lineageTag: e27c5985-7f22-4576-84b0-c5d5971a575e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% HS khai giảng 14 ngày' =
+			
+			var x = CALCULATE(
+			    [số HS]
+			    , fact_arrange_class[arrange_type] = "NEW"
+			    , DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[first_learn_date], DAY) <= 14
+			)
+			RETURN DIVIDE(x, [số HS], BLANK())
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: 1. Xếp lớp
+		lineageTag: c13cb5dc-e085-4f8d-a878-7f3a849b0e53
+
+	measure '% HS KG thành công' = DIVIDE([số HS KG thành công], [số HS KG], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 3. Khai giảng
+		lineageTag: 6d8ad245-0d4b-4e35-a53d-ecb3bbef9c1e
+
+	measure '% lớp hủy thực tế' = DIVIDE([số lớp hủy thực tế], [số lớp mở thực tế], BLANK())
+		formatString: 0.000%;-0.000%;0.000%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: d40ae6a0-ca00-46de-9463-621c4fb0fa97
+
+	measure '% lớp có GS vào lớp đúng giờ' = DIVIDE([số lớp có GS vào lớp đúng giờ], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: e42c48f1-0be4-4a5b-a9c6-1ba8ae55a597
+
+	measure '% lớp có GS vào muộn x phút' = DIVIDE([số lớp có GS vào muộn x phút], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 20828b58-e4c2-4970-82c1-8ccf2c941aa6
+
+	measure 'số HS khai giảng 14 ngày' =
+			CALCULATE(
+			    [số HS]
+			    , fact_arrange_class[arrange_type] = "NEW"
+			    , DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[first_learn_date], DAY) <= 14
+			)
+		formatString: #,0
+		displayFolder: 1. Xếp lớp
+		lineageTag: b3fb6ac3-37fe-48fe-be2e-fabc7d8e35e5
+
+	measure 'số HS regular failed 4 buổi đầu' =
+			
+			CALCULATE(
+			    [số HS regular]
+			    , fact_regular_session[session_number] <= 4
+			    , FILTER(
+			        fact_regular_session,
+			        CONTAINSSTRING(fact_regular_session[student_status], "FAILED")
+			    )
+			)
+		formatString: #,0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 31eb84d9-9933-46b6-8d84-989fbc847919
+
+	measure 'số lớp hủy do hệ thống' =
+			
+			VAR x = CALCULATE(
+			    [số lớp mở thực tế]
+			    , fact_regular_session[session_status] = "FAILED_SYSTEM"
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: be094cef-9204-4fa7-9ed6-e1d9d958b86a
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'số lớp hủy do vận hành' = ```
+			CALCULATE(
+			    [số lớp mở thực tế]
+			    , fact_regular_session[session_status] = "FAILED_OTHER"
+			    , NOT ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] = "FAILED_TECHNICAL"
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 7dc71378-159f-493d-ad0c-fba6452e469b
+
+	measure 'số lớp hủy do GVCN' = ```
+			CALCULATE(
+			    [số lớp mở thực tế]
+			    , fact_regular_session[session_status] = "FAILED_OTHER"
+			    , NOT ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] = "FAILED_MINISTRY"
+			)
+			
+			```
+		formatString: 0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 4ce40ff1-cbf8-436b-986d-543667dfc597
+
+	measure 'số lớp hủy do GS' =
+			
+			VAR x = CALCULATE(
+			    [số lớp mở thực tế]
+			    , fact_regular_session[session_status] = "FAILED_TEACHER"
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 0e89edb2-6ce9-4c6d-bc31-999e3d0a485f
+
+	measure 'số lượt học vào lớp đúng giờ' =
+			
+			CALCULATE(
+			    [tổng lượt học diễn ra thực tế]
+			    , fact_regular_session[is_student_on_time] = 1
+			)
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: ccc90560-4503-4df1-9fbc-4c3ba9b6ef87
+
+	measure 'số lượt học hủy do GS' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_TEACHER"}
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 1df98ea3-4f18-4869-a749-619f8dad3d79
+
+	measure 'số lượt học hủy do GVCN' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_MINISTRY"}
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 11bfbf7c-5fcc-4e9c-bea4-f066aaf2b35c
+
+	measure 'số lượt học hủy do hệ thống' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_SYSTEM"}
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 1a683347-891b-4a16-87e5-1087a3989165
+
+	measure 'số lượt học hủy do vận hành' =
+			
+			var x = CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_TECHNICAL"}
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: f18d69b6-c7a1-4bba-819a-b3f1aab6deac
+
+	measure 'số lớp có GS vào muộn x phút' = ```
+			
+			VAR _slt = SELECTEDVALUE(para_minute_teacher[para_minute_teacher], 2)
+			var x =
+			    CALCULATE(
+			        [số buổi học thành công thực tế]
+			        , fact_regular_session[teacher_early_in_minutes] > _slt
+			        , fact_regular_session[teacher_early_in_minutes] > 0 
+			        // , fact_regular_session[is_teacher_on_time] = 0
+			
+			    )
+			RETURN x
+			```
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: f2589377-a00d-4974-954b-2d1f92fbfb8c
+
+	measure 'số HS vào muộn x phút' =
+			
+			VAR _slt = SELECTEDVALUE(para_minute[para_minute], 2)
+			var x =
+			    CALCULATE(
+			        [tổng lượt học diễn ra thực tế]
+			        , fact_regular_session[student_early_in_minutes] = _slt
+			    )
+			RETURN x
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 1958f33c-476d-42d2-9655-00b1af7e10fd
+
+	measure 'số lớp có GS vào lớp đúng giờ' =
+			
+			var x = CALCULATE(
+			    [số buổi học thành công thực tế]
+			    , fact_regular_session[teacher_early_in_minutes] <= 1
+			    // , fact_regular_session[is_backup] = 0
+			)
+			RETURN x
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 3c52b9ef-9e7e-4a32-939e-7a6f7ec17375
+
+	measure 'tổng lượt học hủy do HS không bù' =
+			CALCULATE(
+			    COUNT(fact_regular_session[student_id])
+			    , not ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED"} -- -> KHÔNG học bù
+			)
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 4f753091-273a-4005-9214-54b76b1a7f3d
+
+	measure '% lượt học hủy do HS không bù' = DIVIDE([tổng lượt học hủy do HS không bù], [tổng lượt học diễn ra thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.1. Hủy
+		lineageTag: 2c9f0c4f-832a-4da0-b34c-58c07582cdcc
+
+	measure 'số GS backup active' =
+			CALCULATE(
+			    DISTINCTCOUNT(fact_schedule_class[teacher_id])
+			    , fact_schedule_class[tutor_group] = "Backup"
+			    , FILTER (
+			        fact_schedule_class,
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "18:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "19:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "20:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "21:00" )
+			    )
+			    ,not fact_schedule_class[schedule_status] in {"WAITING_CANCELLATION_CONFIRMATION", "CANCELED"}
+			    ,dim_teacher_status[work_status] <> "Sắp nghỉ"
+			)
+		formatString: 0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: ae659095-a9c5-4500-9d7e-11e31f35dcb6
+
+	measure 'số GS regular active' = ```
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_schedule_class[teacher_id]),
+			    fact_schedule_class[tutor_group] = "Regular"
+			    , FILTER (
+			        fact_schedule_class,
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "18:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "19:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "20:00" ) &&
+			        NOT CONTAINSSTRING ( fact_schedule_class[start_time], "21:00" )
+			    )
+			    ,not fact_schedule_class[schedule_status] in {"WAITING_CANCELLATION_CONFIRMATION", "CANCELED"}
+			    ,dim_teacher_status[work_status] <> "Sắp nghỉ"
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 4e9df8f1-72b8-4196-bdf7-a297f8e6cf95
+
+	measure 'số GS regular đạt điều kiện' = ```
+			
+			CALCULATE(
+			    [số GS regular active],
+			    FILTER(
+			        VALUES(fact_schedule_class[teacher_id]),
+			        CALCULATE(COUNT(fact_schedule_class[id]), fact_schedule_class[IS_SCHEDULE_REQUIRED] = 1) >= 2 -- tối thiếu 2 ca bắt buộc
+			    ),
+			    FILTER(
+			        VALUES(fact_schedule_class[teacher_id]),
+			        CALCULATE(COUNT(fact_schedule_class[id]), fact_schedule_class[evening_shift] = 1) >= 10 -- tối thiếu 10 ca buổi tối 1 tuần
+			    ),
+			    FILTER(
+			        VALUES(fact_schedule_class[teacher_id]),
+			        CALCULATE(COUNT(fact_schedule_class[id])) >= 12 -- tối thiếu 12 ca 1 tuần
+			    )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 5b88f09b-29af-4ddd-a19b-5262dc8b7a7a
+
+	measure 'số GS backup đạt điều kiện' = ```
+			
+			CALCULATE(
+			    [số GS backup active],
+			    FILTER(
+			        VALUES(fact_schedule_class[teacher_id]),
+			        CALCULATE(COUNT(fact_schedule_class[id]), fact_schedule_class[peak_shift] = 1) >= 3 -- tối thiếu 3 ca cao điểm
+			    ),
+			    FILTER(
+			        VALUES(fact_schedule_class[teacher_id]),
+			        CALCULATE(COUNT(fact_schedule_class[id])) >= 8 -- tối thiếu 8 ca 1 tuần
+			    )
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 11aec2d3-7552-44c0-995f-afd85986e263
+
+	measure 'số lịch đăng ký được nhận' = ```
+			CALCULATE(
+			    [số lịch đăng ký]
+			    , fact_schedule_class[schedule_status] in {"ASSIGNED", "MONITOR_BACKUP"}
+			) 
+			```
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 3752827e-cdb0-413f-b9ac-a25eecf95b9e
+
+	measure '% lịch đăng ký được nhận' = DIVIDE([số lịch đăng ký được nhận],[số lịch đăng ký], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: dc832901-f86d-4e88-b720-edc0432d462e
+
+	measure '% buổi học thành công' =
+			
+			var x = CALCULATE([số buổi học thực tế], fact_regular_session[session_status] = "DONE")
+			RETURN
+			DIVIDE(x, [số buổi học thực tế], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 2. ACS
+		lineageTag: 2a9fa7c8-c1a3-4c9f-9b45-de1cfec2f90c
+
+	measure 'số HS pass 4 buổi đầu' = [số HS KG] - [số HS regular failed 4 buổi đầu]
+		formatString: #,0
+		displayFolder: 3. Khai giảng
+		lineageTag: cd9aa097-eff7-48a1-a1ea-bf0c325a63ce
+
+	measure 'số lớp hủy do HS' = ```
+			CALCULATE(
+			    [số lớp mở thực tế]
+			    , fact_regular_session[session_status] = "FAILED_OTHER"
+			    , NOT ISBLANK(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] IN {"FAILED_STUDENT_NO_LEARNED", "RESCHEDULED"}
+			)
+			
+			```
+		formatString: #,0
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 8d790c29-b390-4490-977c-c26d93e19b72
+
+	measure 'ACS vs yesterday' =
+			
+			var x = CALCULATE ( [ACS], DATEADD ( dim_date[report_date], -1, DAY ) )
+			RETURN [ACS] - x
+		displayFolder: 2. ACS
+		lineageTag: 82b2b100-40d5-459b-b9ee-2dd46fc77f50
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% HS đi muộn' = ```
+			( [tổng lượt học diễn ra thực tế] - [số lượt học vào lớp đúng giờ])/ [tổng lượt học diễn ra thực tế] 
+			```
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 2d25cb62-cdaf-4ab4-9fda-46c91be20a49
+
+	measure 'danh sách HS trong lớp đi muộn' = ```
+			
+			CALCULATE(
+			CONCATENATEX(
+			    VALUES('fact_regular_session'[student_id]),   -- DISTINCT theo ngữ cảnh lớp
+			    'fact_regular_session'[student_id],
+			    ", ",
+			    'fact_regular_session'[student_id],
+			    ASC
+			), fact_regular_session[is_student_on_time] = 0)
+			
+			```
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: b25f6012-7cec-48c1-b564-794166f02367
+
+	measure 'danh sách HS trong lớp' = ```
+			
+			// CALCULATE(
+			CONCATENATEX(
+			    VALUES('fact_regular_session'[student_id]),   -- DISTINCT theo ngữ cảnh lớp
+			    'fact_regular_session'[student_id],
+			    ", ",
+			    'fact_regular_session'[student_id],
+			    ASC
+			)
+			// , fact_regular_session[is_student_on_time] = 0)
+			
+			```
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 27bed314-854b-420d-86aa-40334d23628b
+
+	measure '% GS backup đạt điều kiện' = DIVIDE([số GS backup đạt điều kiện], [số GS backup active], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 0e3b6b70-d0a4-49f9-b6c6-1f2bbb08b029
+
+	measure '% GS regular đạt điều kiện' = DIVIDE([số GS regular đạt điều kiện], [số GS regular active], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 3f5cfc9b-342a-495b-b4d8-1e6137d75d32
+
+	measure '% GS đăng ký lịch đạt chuẩn' =
+			
+			var x = [số GS backup đạt điều kiện] + [số GS regular đạt điều kiện]
+			var y = [số GS backup active] + [số GS regular active]
+			RETURN DIVIDE( x,y,BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 38f62204-d160-4f15-8205-0a4ad7dc9e3a
+
+	measure '% lớp hủy do HS' = DIVIDE([số lớp hủy do HS], [số lớp mở thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 3. Khai giảng\3.1. Hủy
+		lineageTag: 4a027468-37aa-4aca-a5da-e1d0fb4a789b
+
+	measure 'V_ACS vs Last Month' =
+			
+			VAR lastMonth =
+			    CALCULATE(
+			        [ACS],
+			        DATEADD('dim_date'[report_date], -1, MONTH)
+			    )
+			VAR _dif =
+			    DIVIDE([ACS] - lastMonth, lastMonth)
+			VAR _format =
+			    FORMAT(ABS(_dif), "0.00%")
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(lastMonth), BLANK(),
+			    _dif >= 0, "▲ " & _format & " vs Last Month",
+			    _dif < 0, "▼ " & _format & " vs Last Month",
+			    BLANK()
+			)
+		displayFolder: 2. ACS
+		lineageTag: 9c74a1ff-ca9a-4864-9aa0-8b970384b659
+
+	measure 'số GS' = [số GS regular active] + [số GS backup active]
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 9fa145e2-e1ae-4db3-886c-1ee8cc807419
+
+	measure 'V_% nhận lớp của GS vs Last Month' =
+			
+			VAR lastMonth =
+			    CALCULATE(
+			        [% lịch đăng ký được nhận],
+			        DATEADD('dim_date'[report_date], -1, MONTH)
+			    )
+			VAR _dif =
+			    DIVIDE([% lịch đăng ký được nhận] - lastMonth, lastMonth)
+			VAR _format =
+			    FORMAT(ABS(_dif), "0.00%")
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(lastMonth), BLANK(),
+			    _dif >= 0, "▲ " & _format & " vs Last Month",
+			    _dif < 0, "▼ " & _format & " vs Last Month",
+			    BLANK()
+			)
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 2641f259-af46-46a0-8236-23c516897f48
+
+	measure 'V_% lớp bị backup vs Last Month' =
+			
+			VAR lastMonth =
+			    CALCULATE(
+			        [% lớp bị backup],
+			        DATEADD('dim_date'[report_date], -1, MONTH)
+			    )
+			VAR _dif =
+			    DIVIDE([% lớp bị backup] - lastMonth, lastMonth)
+			VAR _format =
+			    FORMAT(ABS(_dif), "0.00%")
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(lastMonth), BLANK(),
+			    _dif >= 0, "▲ " & _format & " vs Last Month",
+			    _dif < 0, "▼ " & _format & " vs Last Month",
+			    BLANK()
+			)
+		displayFolder: 5. Lớp BU
+		lineageTag: 7b03b753-5c13-4bee-95d6-a2f219a90066
+
+	measure 'V_% lớp bị backup x lần vs Last Month' =
+			
+			VAR lastMonth =
+			    CALCULATE(
+			        [% lớp bị backup x lần],
+			        DATEADD('dim_date'[report_date], -1, MONTH)
+			    )
+			VAR _dif =
+			    DIVIDE([% lớp bị backup x lần] - lastMonth, lastMonth)
+			VAR _format =
+			    FORMAT(ABS(_dif), "0.00%")
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(lastMonth), BLANK(),
+			    _dif >= 0, "▲ " & _format & " vs Last Month",
+			    _dif < 0, "▼ " & _format & " vs Last Month",
+			    BLANK()
+			)
+		displayFolder: 5. Lớp BU
+		lineageTag: 91d73dc9-053c-42ca-9446-dc965fe0bb9a
+
+	measure 'V_% GS đăng ký lịch đạt chuẩn vs Last Month' =
+			
+			VAR lastMonth =
+			    CALCULATE(
+			        [% GS đăng ký lịch đạt chuẩn],
+			        DATEADD('dim_date'[report_date], -1, MONTH)
+			    )
+			VAR _dif =
+			    DIVIDE([% GS đăng ký lịch đạt chuẩn] - lastMonth, lastMonth)
+			VAR _format =
+			    FORMAT(ABS(_dif), "0.00%")
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(lastMonth), BLANK(),
+			    _dif >= 0, "▲ " & _format & " vs Last Month",
+			    _dif < 0, "▼ " & _format & " vs Last Month",
+			    BLANK()
+			)
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 5d4fdecb-2d0f-4cdc-b2db-1dfdc0957d45
+
+	measure 'số lịch bắt buộc' = CALCULATE([số lịch đăng ký], fact_schedule_class[is_schedule_required] = 1)
+		formatString: 0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: a7807883-0de9-45f9-ae84-63ace2fd9e7a
+
+	measure 'số lịch cao điểm' = CALCULATE([số lịch đăng ký], fact_schedule_class[peak_shift] = 1)
+		formatString: 0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: 30b2ebe8-0510-4723-82e5-7cafbe7c6af0
+
+	measure 'số lịch buổi tối' = CALCULATE([số lịch đăng ký], fact_schedule_class[evening_shift] = 1)
+		formatString: 0
+		displayFolder: 6. Đặt lịch GS\6.1. Chiều lớp
+		lineageTag: ec7c8b37-3e23-4cb0-acc8-2dbea960c96f
+
+	measure switch_ACS =
+			SWITCH(
+			    SELECTEDVALUE('switch'[switch])
+			    , "Buổi học", [số buổi học thực tế]
+			    , "Lượt học", [số lượt học thực tế]
+			    , "ACS", [ACS]
+			)
+		displayFolder: 2. ACS
+		lineageTag: 18ad0284-6a02-4e67-b64d-0b4b87205ec1
+
+		formatStringDefinition =
+				SWITCH(
+				    SELECTEDVALUE('switch'[switch]),
+				    "Buổi học", "#,0",
+				    "Lượt học", "#,0",
+				    "ACS", "#,0.00",
+				    "#,0"
+				)
+
+	measure 'danh sách gia sư' = ```
+			
+			CALCULATE(
+			CONCATENATEX(
+			    VALUES('fact_regular_session'[chairman_teacher_id]),   -- DISTINCT theo ngữ cảnh lớp
+			    'fact_regular_session'[chairman_teacher_id],
+			    ", ",
+			    'fact_regular_session'[chairman_teacher_id],
+			    ASC
+			)
+			)
+			
+			```
+		displayFolder: 5. Lớp BU
+		lineageTag: 16011ef8-c7f3-45bf-acc0-87ca365d9e8a
+
+	measure 'tổng số lớp mở' = DISTINCTCOUNT(fact_class_regular[class_code])
+		formatString: #,0
+		displayFolder: 7. Đổi CN
+		lineageTag: 30ea89de-20a8-4857-9ce0-b00cd92cd022
+
+	measure 'tổng số lớp có ticket đổi GVCN' =
+			CALCULATE(
+			    [tổng số lớp mở]
+			    , fact_class_regular[has_change_teacher] = 1
+			)
+		formatString: #,0
+		displayFolder: 7. Đổi CN
+		lineageTag: 02a598f1-9c34-4e0e-a311-72571300f944
+
+	measure 'số lớp đổi GVCN có ticket nghỉ/tạm nghỉ' =
+			
+			CALCULATE(
+			    [tổng số lớp mở],
+			    fact_class_regular[HAS_CHANGE_TEACHER] = 1,
+			    fact_class_regular[HAS_TERMINATED_TICKET] = 1
+			)
+		formatString: #,0
+		displayFolder: 7. Đổi CN
+		lineageTag: 7039452a-e721-4e75-bc6d-1b31c677c5e9
+
+	measure 'số lần backup' =
+			
+			CALCULATE(
+			    COUNTROWS(fact_regular_session),
+			    fact_regular_session[is_backup] = 1,
+			    fact_regular_session[session_status] = "DONE",
+			    fact_regular_session[student_status] IN {"SUCCESS", "FAILED_STUDENT_NO_LEARNED"}
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 69726917-830f-445d-92e6-f40ff6cc3c72
+
+	measure 'số buổi học thành công thực tế' =
+			CALCULATE(
+			    DISTINCTCOUNT(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED", "SUCCESS"}
+			    , fact_regular_session[session_status] = "DONE"
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 38d77742-a6d7-48da-a5cc-78232bdd787c
+
+	measure 'số buổi học thành công backup' =
+			CALCULATE(
+			    [số buổi học thành công thực tế]
+			    , fact_regular_session[is_backup] = 1
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: deb9c219-6d5b-4cfc-862b-13c270b1baf6
+
+	measure '% buổi học thành công backup' = DIVIDE([số buổi học thành công backup], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Lớp BU
+		lineageTag: 97d6f310-b476-4cf8-83b9-de652fbc2954
+
+	measure 'số buổi học thành công backup nghỉ phép' =
+			CALCULATE(
+			    [số buổi học thành công backup]
+			    , fact_regular_session[absence_type] = "Nghỉ phép"
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 3b08ba59-0baa-4244-9e4c-fd610736a8e0
+
+	measure 'số buổi học thành công backup ngoài phép' =
+			CALCULATE(
+			    [số buổi học thành công backup]
+			    , fact_regular_session[absence_type] = "Ngoài phép"
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 19017226-53e9-4923-a038-19ce0288169c
+
+	measure 'số buổi học thành công backup bỏ ca' =
+			CALCULATE(
+			    [số buổi học thành công backup]
+			    , fact_regular_session[absence_type] = "Bỏ ca"
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 9c98f9a7-3c6f-457d-88fb-d166639f09ca
+
+	measure 'số buổi học thành công backup bỏ ca/nghỉ gấp' = ```
+			
+			 var x = [số buổi học thành công backup] 
+			- [số buổi học thành công backup nghỉ phép] - [số buổi học thành công backup ngoài phép]
+			RETURN
+			SWITCH( TRUE(), x = 0, BLANK(), x)
+			```
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 81257596-573d-402e-9df4-ab403af19a69
+
+	measure '% buổi học thành công backup nghỉ phép' = DIVIDE([số buổi học thành công backup nghỉ phép], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Lớp BU
+		lineageTag: f04f13ce-190e-417e-bcf5-a8c4c1dd7201
+
+	measure '% buổi học thành công backup ngoài phép' = DIVIDE([số buổi học thành công backup ngoài phép], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Lớp BU
+		lineageTag: 76edf81e-4a68-49ed-a665-f0e605aa0417
+
+	measure '% buổi học thành công backup bỏ ca/nghỉ gấp' = DIVIDE([số buổi học thành công backup bỏ ca/nghỉ gấp], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Lớp BU
+		lineageTag: 83343878-144b-4c58-aedd-af1a98fe0a52
+
+	measure 'số lớp mở mới' =
+			DISTINCTCOUNT(fact_class_regular[class_code])
+			// theo logic ngày sinh log tạo lớp trên LMS
+		formatString: #,0
+		displayFolder: 8. Mở lớp
+		lineageTag: 2ba099cd-8bf3-497c-be1b-c9ad43a1632d
+
+	measure 'số lớp đang vận hành' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(fact_class_regular[class_code]),
+			    fact_class_regular[class_status] IN {"Đang học", "Chờ khai giảng"},
+			    REMOVEFILTERS(dim_date)
+			)
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.1. Mở lớp theo KPI
+		lineageTag: e503aac1-d869-4ab7-8df4-5b7cff3f87c6
+
+	measure 'số lớp đang vận hành KPI' =
+			
+			VAR _kpi =
+			    MAX(dim_kpi[KPI])
+			VAR _total_model =
+			    CALCULATE(
+			        [số lớp đang vận hành],
+			        REMOVEFILTERS(dim_level_teacher)
+			    )
+			RETURN
+			_kpi * _total_model
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.1. Mở lớp theo KPI
+		lineageTag: 819605c0-c1cd-46cb-8103-2a555c038b5c
+
+	measure '% lớp thực đạt' =
+			
+			VAR _act =
+			    [số lớp đang vận hành]
+			VAR _total_model =
+			    CALCULATE(
+			        [số lớp đang vận hành],
+			        REMOVEFILTERS(dim_level_teacher)
+			    )
+			RETURN
+			DIVIDE(_act, _total_model, BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Mở lớp\8.1. Mở lớp theo KPI
+		lineageTag: 981afa42-4fe5-400e-9dee-40d577cbf005
+
+	measure '% chênh lệch actual vs KPI' = ```
+			
+			VAR _kpi =
+			    MAX(dim_kpi[KPI])
+			RETURN
+			[% lớp thực đạt] - _kpi 
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Mở lớp\8.1. Mở lớp theo KPI
+		lineageTag: db6432aa-2fcb-4344-afce-8c097da4d4c1
+
+	measure 'chênh lệch số lớp mở' = [số lớp đang vận hành] - [số lớp đang vận hành KPI]
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.1. Mở lớp theo KPI
+		lineageTag: f7e21d8e-4205-4d84-bcee-9741551f9494
+
+	measure 'tổng buổi học của GS' =
+			CALCULATE(
+			    DISTINCTCOUNT(fact_regular_session[class_session_code])
+			    , fact_regular_session[student_status] in {"FAILED_STUDENT_NO_LEARNED", "SUCCESS"}
+			    , fact_regular_session[session_status] = "DONE"
+			)
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.2. Mở lớp theo vận hành
+		lineageTag: 063d937e-e6e1-439e-be95-bc550759fb03
+
+	measure '% lớp thực đạt vận hành' =
+			
+			VAR _act =
+			    [tổng buổi học của GS]
+			VAR _total_model =
+			    CALCULATE(
+			        [tổng buổi học của GS],
+			        REMOVEFILTERS(dim_level_teacher)
+			    )
+			RETURN
+			DIVIDE(_act, _total_model, BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Mở lớp\8.2. Mở lớp theo vận hành
+		lineageTag: 78ed9011-6f98-455a-8070-ee53ea336fe8
+
+	measure 'số lớp được mở theo KH' =
+			
+			VAR _kpi =
+			    MAX(dim_kpi[KPI])
+			VAR _total_model =
+			    CALCULATE(
+			        [tổng buổi học của GS],
+			        REMOVEFILTERS(dim_level_teacher)
+			    )
+			RETURN
+			_kpi * _total_model
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.2. Mở lớp theo vận hành
+		lineageTag: 90d62859-d730-4fa9-a109-729f2c50b25a
+
+	measure '% chênh lệch actual vs KPI vận hành' =
+			
+			VAR _kpi =
+			    MAX(dim_kpi[KPI])
+			RETURN
+			[% lớp thực đạt vận hành] - _kpi
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Mở lớp\8.2. Mở lớp theo vận hành
+		lineageTag: 426c4df8-38c9-43b3-ad43-9e58f27b06b2
+
+	measure 'chênh lệch số lớp mở vận hành' = [tổng buổi học của GS] - [số lớp được mở theo KH]
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.2. Mở lớp theo vận hành
+		lineageTag: f34ee618-45f5-4fb4-ab36-bc3cf4763710
+
+	measure 'switch_% thực đạt' =
+			
+			SWITCH(
+			    SELECTEDVALUE('switch'[kpi]),
+			    "Kế hoạch", [% lớp thực đạt],
+			    "Thực tế", [% lớp thực đạt vận hành],
+			    BLANK()
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Mở lớp\8.3. Switch
+		lineageTag: 94130c2f-24f1-4d7d-867f-9d625db15574
+
+	measure 'switch_số lượng lớp' =
+			SWITCH(
+			    SELECTEDVALUE('switch'[kpi])
+			    , "Kế hoạch", [số lớp đang vận hành]
+			    , "Thực tế", [tổng buổi học của GS]
+			    , BLANK()
+			)
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.3. Switch
+		lineageTag: a4b4172e-4e8b-433b-86af-1823025fd7a0
+
+	measure 'switch_số lượng lớp KPI' =
+			SWITCH(
+			    SELECTEDVALUE('switch'[kpi])
+			    , "Kế hoạch", [số lớp đang vận hành KPI]
+			    , "Thực tế", [số lớp được mở theo KH]
+			    , BLANK()
+			)
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.3. Switch
+		lineageTag: b1e15d2a-1015-4022-af5a-90e161d237d9
+
+	measure 'switch_% chênh lệch' = ```
+			SWITCH(
+			    SELECTEDVALUE('switch'[kpi])
+			    , "Kế hoạch", [% chênh lệch actual vs KPI]
+			    , "Thực tế", [% chênh lệch actual vs KPI vận hành]
+			    , BLANK()
+			)
+			
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 8. Mở lớp\8.3. Switch
+		lineageTag: e0c0beb2-58db-4790-8fd5-27db7680b27a
+
+	measure 'switch_số lớp chênh lệch' =
+			SWITCH(
+			    SELECTEDVALUE('switch'[kpi])
+			    , "Kế hoạch", [chênh lệch số lớp mở]
+			    , "Thực tế", [chênh lệch số lớp mở vận hành]
+			    , BLANK()
+			)
+		formatString: #,0
+		displayFolder: 8. Mở lớp\8.3. Switch
+		lineageTag: 5437a3a3-5bd1-475b-9ee8-6e0ce919ee27
+
+	measure 'số lớp có GSCN vào muộn x phút' = ```
+			
+			VAR _slt = SELECTEDVALUE(para_minute_teacher[para_minute_teacher], 2)
+			var x =
+			    CALCULATE(
+			        [số buổi học thành công thực tế]
+			        , fact_regular_session[is_backup] = 0
+			        , fact_regular_session[teacher_early_in_minutes] > _slt
+			        // , fact_regular_session[is_teacher_on_time] = 0
+			        , fact_regular_session[teacher_early_in_minutes] > 0 
+			    )
+			RETURN x
+			```
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: d3be93f3-ea15-42a7-8343-c5d8f69c1728
+
+	measure 'số lớp có GSBU vào muộn x phút' = ```
+			
+			VAR _slt = SELECTEDVALUE(para_minute_teacher[para_minute_teacher], 2)
+			var x =
+			    CALCULATE(
+			        [số buổi học thành công thực tế]
+			        , fact_regular_session[is_backup] = 1
+			        , fact_regular_session[teacher_early_in_minutes] > _slt
+			        , fact_regular_session[teacher_early_in_minutes] > 0 
+			
+			    )
+			RETURN x
+			```
+		formatString: #,0
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: d599b7f7-e9ec-4614-a31f-c72354ffeecf
+
+	measure '% lớp có GSCN vào muộn x phút' = DIVIDE([số lớp có GSCN vào muộn x phút], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: 309effbf-2120-4ffb-aa4f-1ae2d785e17a
+
+	measure '% lớp có GSBU vào muộn x phút' = DIVIDE([số lớp có GSBU vào muộn x phút], [số buổi học thành công thực tế], BLANK())
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Lượt học\4.2. Vào lớp
+		lineageTag: a0f2580a-8054-4c4e-9ab7-ebd84d13ff89
+
+	measure Measure
+		displayFolder: 1. Xếp lớp
+		lineageTag: 60619497-3574-47ec-9c42-d6d1e436b73b
+
+		annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":null}
+
+		annotation 277cc1b9-af89-4597-8e15-cacc25c0886b = To use special characters in a measure name, enclose the entire name in brackets ( [] ) and add a ] to any closing brackets in the name.
+
+	measure 'số lớp bị backup 2+ lần' =
+			
+			VAR _slt = SELECTEDVALUE(para_backup[para_backup], 2)
+			RETURN
+			COUNTROWS(
+			    FILTER(
+			        SUMMARIZECOLUMNS(
+			            fact_regular_session[learn_month],
+			            fact_regular_session[class_code],
+			
+			            "total_session",
+			                CALCULATE(
+			                    DISTINCTCOUNT(fact_regular_session[class_session_code]),
+			                    fact_regular_session[session_status] = "DONE",
+			                    fact_regular_session[student_status] IN {
+			                        "SUCCESS",
+			                        "FAILED_STUDENT_NO_LEARNED"
+			                    }
+			                ),
+			
+			            "total_backup_session",
+			                CALCULATE(
+			                    DISTINCTCOUNT(fact_regular_session[class_session_code]),
+			                    fact_regular_session[is_backup] = 1,
+			                    fact_regular_session[session_status] = "DONE",
+			                    fact_regular_session[student_status] IN {
+			                        "SUCCESS",
+			                        "FAILED_STUDENT_NO_LEARNED"
+			                    }
+			                )
+			        ),
+			        [total_backup_session] >= 2
+			            && NOT ISBLANK(fact_regular_session[class_code])
+			    )
+			)
+		formatString: #,0
+		displayFolder: 5. Lớp BU
+		lineageTag: 996c8550-41b7-4916-9e2d-e096f0ac25cb
+
+	measure 'số đơn PTC D ngày' = ```
+			
+			-- Tỷ lệ liên hệ thành công trong D+x (x: nhập số vào báo cáo tự nhảy số theo)
+			var _slt = SELECTEDVALUE(para_day[para_day], 5) 
+			RETURN
+			CALCULATE(
+			    [số đơn PTC]
+			    // , fact_arrange_class[ARRANGE_STATUS] = "DONE"
+			    // , fact_arrange_class[arrange_type] = "NEW"
+			    , DATEDIFF(fact_arrange_class[ptc_date], fact_arrange_class[arrange_success_date], DAY) <=  _slt
+			)
+			```
+		formatString: #,0
+		displayFolder: 1. Xếp lớp
+		lineageTag: 2f4186da-9841-4342-96cb-433221f2b33f
+
+	measure 'tổng số lịch gửi GS' = DISTINCTCOUNT(fact_schedule_teacher[id])
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.2. Chiều GS
+		lineageTag: 983aa2ea-c13c-46bc-8de9-93bb91501baa
+
+	measure 'số lịch GS nhận' =
+			CALCULATE(
+			    [tổng số lịch gửi GS]
+			    , fact_schedule_teacher[status] IN {"CONFIRMED", "SENT_CONFIRM"}
+			    // , fact_schedule_teacher[tutor_group] = "Regular"
+			    , dim_teacher_status[work_status] <> "Sắp nghỉ"
+			)
+		formatString: #,0
+		displayFolder: 6. Đặt lịch GS\6.2. Chiều GS
+		lineageTag: 8148e005-4420-4850-91c6-75dee4c7c08a
+
+	measure '% lịch GS nhận' = DIVIDE([số lịch GS nhận],[tổng số lịch gửi GS], BLANK())
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: 6. Đặt lịch GS\6.2. Chiều GS
+		lineageTag: 11b22766-b3fa-4743-84c2-a7e408928b4b
+
+	measure 'V_% lịch GS nhận vs Last Month' =
+			
+			VAR lastMonth =
+			    CALCULATE(
+			        [% lịch GS nhận],
+			        DATEADD('dim_date'[report_date], -1, MONTH)
+			    )
+			VAR _dif =
+			    DIVIDE([% lịch GS nhận] - lastMonth, lastMonth)
+			VAR _format =
+			    FORMAT(ABS(_dif), "0.00%")
+			RETURN
+			SWITCH(
+			    TRUE(),
+			    ISBLANK(lastMonth), BLANK(),
+			    _dif >= 0, "▲ " & _format & " vs Last Month",
+			    _dif < 0, "▼ " & _format & " vs Last Month",
+			    BLANK()
+			)
+		displayFolder: 6. Đặt lịch GS\6.2. Chiều GS
+		lineageTag: e18d8dfc-40b7-4b23-9c93-ec9535334ecd
+
+	partition 'A - Measure' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

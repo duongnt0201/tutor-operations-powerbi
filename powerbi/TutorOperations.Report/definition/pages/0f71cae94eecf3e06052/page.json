@@ -1,0 +1,132 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "0f71cae94eecf3e06052",
+  "displayName": "5. Vận hành gia sư",
+  "displayOption": "FitToPage",
+  "height": 1060,
+  "width": 1860,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "49988e87b322e4757e63",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "fact_schedule_class"
+              }
+            },
+            "Property": "tutor_group"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "f",
+              "Entity": "fact_schedule_class",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "f"
+                          }
+                        },
+                        "Property": "tutor_group"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Backup'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Regular'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  },
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F6F5F5'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "visibility": "HiddenInViewMode",
+  "visualInteractions": [
+    {
+      "source": "0607cb197422033e81d7",
+      "target": "09584bb1e31b98186382",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0607cb197422033e81d7",
+      "target": "e0ab8e9a7528bc54c614",
+      "type": "DataFilter"
+    },
+    {
+      "source": "b76a7656d1b01c372f96",
+      "target": "e0ab8e9a7528bc54c614",
+      "type": "NoFilter"
+    },
+    {
+      "source": "0607cb197422033e81d7",
+      "target": "b76a7656d1b01c372f96",
+      "type": "DataFilter"
+    },
+    {
+      "source": "0607cb197422033e81d7",
+      "target": "c8fbcb9650228c26260d",
+      "type": "NoFilter"
+    },
+    {
+      "source": "b76a7656d1b01c372f96",
+      "target": "c8fbcb9650228c26260d",
+      "type": "NoFilter"
+    }
+  ]
+}

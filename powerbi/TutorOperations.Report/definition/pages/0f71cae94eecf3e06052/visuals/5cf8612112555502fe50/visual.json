@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "5cf8612112555502fe50",
+  "position": {
+    "x": 870.18502202643174,
+    "y": 319.55947136563879,
+    "z": 3000,
+    "height": 270.39647577092512,
+    "width": 955.40088105726886,
+    "tabOrder": 9000
+  },
+  "visualGroup": {
+    "displayName": "% buổi học BU thành công",
+    "groupMode": "ScaleMode"
+  }
+}

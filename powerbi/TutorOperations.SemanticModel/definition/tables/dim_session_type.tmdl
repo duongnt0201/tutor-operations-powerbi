@@ -1,0 +1,47 @@
+table dim_session_type
+	lineageTag: e82e6289-5ef6-4506-9190-7403e5d79099
+
+	column session_type
+		lineageTag: 3f9e3aeb-0155-4b8c-a9bb-0257a6fa9957
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [session_type]
+		sortByColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		lineageTag: d6ff4b6a-7df7-4c4b-99dd-f9faebd17b38
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [name]
+		sortByColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column id
+		formatString: 0
+		lineageTag: 164a62b3-25f8-470a-9395-19f8267ab154
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [id]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_session_type = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "session_type", STRING,
+				    "name", STRING,
+				    "id", INTEGER,
+				    {
+				        {"FIRST_TIME", "Khai giảng", "1"},
+				        {"LEARN_SCHEDULE", "Định kỳ", "2"},
+				        {"MAKE_UP_LESSON", "Học bù", "3"}
+				    }
+				)
+
+	annotation PBI_Id = dda28fd2bb484a00b1221686701d9730
+

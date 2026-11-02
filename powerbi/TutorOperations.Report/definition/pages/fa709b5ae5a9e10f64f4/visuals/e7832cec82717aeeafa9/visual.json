@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "e7832cec82717aeeafa9",
+  "position": {
+    "x": 280,
+    "y": 535,
+    "z": 6000,
+    "height": 490,
+    "width": 475,
+    "tabOrder": 5000
+  },
+  "visualGroup": {
+    "displayName": "Theo ca dạy",
+    "groupMode": "ScaleMode"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "cbeffc5f345c7f347d52",
+  "position": {
+    "x": 750,
+    "y": 459.85239852398524,
+    "z": 9000,
+    "height": 289.63837638376384,
+    "width": 450,
+    "tabOrder": 6000
+  },
+  "visualGroup": {
+    "displayName": " Tỷ trọng đơn chưa LH",
+    "groupMode": "ScaleMode"
+  }
+}

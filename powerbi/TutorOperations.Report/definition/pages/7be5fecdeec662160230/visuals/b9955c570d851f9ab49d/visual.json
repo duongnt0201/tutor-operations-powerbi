@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "b9955c570d851f9ab49d",
+  "position": {
+    "x": 618.57142857142856,
+    "y": 120.00000000000001,
+    "z": 5000,
+    "height": 305.71428571428572,
+    "width": 352.85714285714289,
+    "tabOrder": 2000
+  },
+  "visualGroup": {
+    "displayName": "Lượt học",
+    "groupMode": "ScaleMode"
+  }
+}
